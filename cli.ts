@@ -34,6 +34,10 @@ const { options } = await new cliffy.Command()
     .command("watch", watch)
     .parse(Deno.args);
 
+if(!options.init && Deno.args.length === 0) {
+  await watchWorkspace();
+}
+
 if (options.init) {
   const configExists = await doesConfigExist();
 
