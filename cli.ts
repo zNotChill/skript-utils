@@ -72,24 +72,34 @@ async function watchWorkspace() {
   main.setConfig(config);
 
   const watcher = Deno.watchFs(workspace);
-
   const changeSpinner = ora("Watching for changes in " + workspace).start();
 
   let debounceTimeout: number | undefined;
 
   for await (const event of watcher) {
     if (event.paths[0].endsWith("skript-utils.json")) {
-      const configReload = ora("Detected change in skript-utils.json. Reloading config.").start();
-      
-      config = await getConfig();
-      main.setConfig(config);
+      if (debounceTimeout) {
+        clearTimeout(debounceTimeout);
+      }
 
-      configReload.succeed();
+      debounceTimeout = setTimeout(async () => {
+        const configReload = ora("Detected change in skript-utils.json. Reloading config and repackaging.").start();
+        await repackage(main, config);
+        
+        config = await getConfig();
+        main.setConfig(config);
+
+        configReload.succeed();
+        changeSpinner.start();
+      }, 100);
+
       continue;
     }
+
     if (!event.paths[0].endsWith(".sk")) {
       continue;
     }
+
     if (event.paths[0].endsWith(`${config.outputFileName}`)) {
       continue;
     }
@@ -98,26 +108,30 @@ async function watchWorkspace() {
       clearTimeout(debounceTimeout);
     }
 
-    debounceTimeout = setTimeout(() => {
+    debounceTimeout = setTimeout(async () => {
       changeSpinner.stop();
 
-      main.setDefs([]);
-      main.setImports([]);
-      main.loadAllDefinitions().then(() => {
-        main.parseAllFiles().then(() => {
-          const packagedContent = main.packageFunctions();
-          
-          Deno.mkdir(workspace + "/" + config.outputDir, { recursive: true });
-          const savePath = workspace + "/" + config.outputDir + "/" + config.outputFileName;
-          
-          Deno.writeTextFile(savePath, packagedContent);
-          ora("Packed functions to " + savePath).succeed();
-        });
-      });
+      await repackage(main, config);
 
       const spinner = ora("Detected change in " + event.paths[0] + ". Repacking.").start();
       spinner.succeed();
       changeSpinner.start();
     }, 100);
   }
+}
+
+function repackage(main: typeof import("./main.ts"), config: ConfigType) {
+  main.setDefs([]);
+  main.setImports([]);
+  main.loadAllDefinitions().then(() => {
+    main.parseAllFiles().then(() => {
+      const packagedContent = main.packageFunctions();
+      
+      Deno.mkdir(workspace + "/" + config.outputDir, { recursive: true });
+      const savePath = workspace + "/" + config.outputDir + "/" + config.outputFileName;
+      
+      Deno.writeTextFile(savePath, packagedContent);
+      ora("Packed functions to " + savePath).succeed();
+    });
+  });
 }
