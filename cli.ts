@@ -60,7 +60,7 @@ if (options.init) {
 
 async function watchWorkspace() {
   if (!await doesConfigExist()) {
-    ora("Workspace not initialized. Run `skript-utils --init` first.").fail();
+    ora("Workspace not initialized. Run `skutils --init` first.").fail();
     Deno.exit(1);
   }
 
