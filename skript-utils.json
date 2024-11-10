@@ -1,9 +1,0 @@
-{
-  "commentChar": "#",
-  "indentChar": "SPACE",
-  "indentSize": 2,
-  "codeDir": "./",
-  "outputDir": "Utils",
-  "outputFileName": "Utils.sk",
-  "excludeFiles": []
-}
