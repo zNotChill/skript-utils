@@ -4,7 +4,6 @@ export type Config = {
   indentChar: "SPACE" | "TAB",
   indentSize: number,
   codeDir: string,
-  utilsDir: string,
   outputDir: string,
   outputFileName: string,
   excludeFiles: string[],

@@ -4,6 +4,7 @@ import * as cliffy from "https://deno.land/x/cliffy@v0.25.7/mod.ts";
 import ora from "npm:ora@8.1.1";
 import type { Config as ConfigType } from "./utils/classes/Config.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
+import { copyUtilsToAppData } from "./utils/Scripts.ts";
 
 const workspace = Deno.cwd();
 const configPath = workspace + "/skript-utils.json";
@@ -65,6 +66,7 @@ async function watchWorkspace() {
   }
 
   let config = await getConfig();
+  await copyUtilsToAppData(import.meta.dirname + "/script-utils" || Deno.cwd());
   const main = await import("./main.ts");
 
   main.setConfig(config);
@@ -105,7 +107,11 @@ async function watchWorkspace() {
         main.parseAllFiles().then(() => {
           const packagedContent = main.packageFunctions();
           
-          Deno.writeTextFile(workspace + "/" + config.outputDir + "/" + config.outputFileName, packagedContent);
+          Deno.mkdir(workspace + "/" + config.outputDir, { recursive: true });
+          const savePath = workspace + "/" + config.outputDir + "/" + config.outputFileName;
+          
+          Deno.writeTextFile(savePath, packagedContent);
+          ora("Packed functions to " + savePath).succeed();
         });
       });
 

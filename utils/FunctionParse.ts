@@ -51,6 +51,10 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
       // Get function parameters
       const parameters: VariableType[] = [];
 
+      try {
+        line.split("(")[1].split(")")[0].split(",")
+      } catch (error) {}
+      
       line.split("(")[1].split(")")[0].split(",")
         .forEach((value: string) => {
           if (!value.trim()) {

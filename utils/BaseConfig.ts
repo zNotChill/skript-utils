@@ -5,7 +5,6 @@ export const BaseConfig: Config = {
   indentChar: "SPACE",
   indentSize: 2,
   codeDir: "./",
-  utilsDir: "script-utils",
   outputDir: "Utils",
   outputFileName: "Utils.sk",
   excludeFiles: [],

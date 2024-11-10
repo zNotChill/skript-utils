@@ -6,6 +6,7 @@ import { filterUseList } from "./utils/ListUtils.ts";
 import { filterFunctionList } from "./utils/ListUtils.ts";
 import type { Config as ConfigType } from "./utils/classes/Config.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
+import { getUtilsPath } from "./utils/Scripts.ts";
 
 export let defs: FunctionType[] = [];
 export let imports: Import[] = [];
@@ -13,7 +14,12 @@ imports = []; // shut up deno please
 
 export let Config: ConfigType = BaseConfig;
 
+if (Config.codeDir === "./") {
+  Config.codeDir = Deno.cwd();
+}
+
 let indent: string;
+const utilsDir = getUtilsPath();
 
 export function setConfig(config: ConfigType) {
   Config = config;
@@ -34,9 +40,13 @@ export function setImports(newImports: Import[]) {
 
 export async function loadAllDefinitions() {
   defs = [];
-  for await (const entry of Deno.readDir(Config.utilsDir)) {
+  for await (const entry of Deno.readDir(utilsDir)) {
     if (entry.isFile) {
-      const content = await Deno.readTextFile(`${Config.utilsDir}/${entry.name}`);
+      if(!entry.name.endsWith(".sk")) {
+        continue;
+      }
+      
+      const content = await Deno.readTextFile(`${utilsDir}/${entry.name}`);
       const funcs = await parseFunctions(content, entry.name);
       
       defs.push(...funcs);
@@ -104,25 +114,25 @@ export async function parseContent(content: string): Promise<FunctionType[]> {
   return required;
 }
 
-export async function parseAllFiles() {
-  requiredFunctions.length = 0;
-  const data = await Deno.readDir(Config.codeDir);
+export async function recursiveParse(filepath: string) {
+  const data = await Deno.readDirSync(filepath);
   for await (const entry of data) {
-    if (
-      entry.isFile && 
-      entry.name.endsWith(".sk") &&
-      entry.name !== Config.outputFileName &&
-      Config.excludeFiles.indexOf(entry.name) === -1
-    ) {
-      await parseFile(`${Config.codeDir}/${entry.name}`).then((required) => {
+    if (entry.isFile && entry.name.endsWith(".sk")) {
+      await parseFile(`${filepath}/${entry.name}`).then((required) => {
         if (required.length > 0) {
           requiredFunctions.push(...required);
         }
       });
+    } else if (entry.isDirectory) {
+      await recursiveParse(`${filepath}/${entry.name}`);
     }
   }
 }
 
+export async function parseAllFiles() {
+  requiredFunctions.length = 0;
+  await recursiveParse(Config.codeDir);
+}
 
 export function packageFunctions(): string {
   const uniqueFunctions = filterFunctionList(requiredFunctions);
