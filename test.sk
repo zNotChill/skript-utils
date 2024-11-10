@@ -1,0 +1,6 @@
+# Time_ago()
+# Time_agoUnix()
+# Time_durationBetween()
+
+function dingaling():
+  String_format("Hello, %%s!", "world")
