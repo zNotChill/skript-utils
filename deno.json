@@ -1,5 +1,10 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "cli-spinners": "npm:cli-spinners@^3.2.0",
+    "cliffy": "npm:cliffy@^2.5.1",
+    "ora": "npm:ora@^8.1.1"
   }
 }

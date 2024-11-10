@@ -2,6 +2,6 @@
 function String_concat(str1: string = "", str2: string = "", str3: string = "", str4: string = "", str5: string = "", str6: string = "", str7: string = "", str8: string = "", str9: string = "", str10: string = "") :: string:
   return "%{_str1}%%{_str2}%%{_str3}%%{_str4}%%{_str5}%%{_str6}%%{_str7}%%{_str8}%%{_str9}%%{_str10}%"
 
-# Dependencies: java.text.MessageFormat
+# Dependencies: java.util.Formatter
 function String_format(str: string, val1: string, val2: string = "", val3: string = "", val4: string = "", val5: string = "", val6: string = "", val7: string = "", val8: string = "", val9: string = "", val10: string = "") :: string:
   return {_str}.formatted({_val1}, {_val2}, {_val3}, {_val4}, {_val5}, {_val6}, {_val7}, {_val8}, {_val9}, {_val10})
