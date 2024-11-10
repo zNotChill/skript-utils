@@ -26,18 +26,17 @@ export function findUses(content: string, definitions: FunctionType[]): UseInfo[
 
     // console.log(`Processing line ${lineIndex + 1}: ${lineContent}`);
 
-    const tokens = lineContent.split(/[\s\(\),]+/); // Split by spaces, parentheses, and commas
-    for (const token of tokens) {
-      for (const definition of definitions) {
-        if (token === definition.unchangedName) {
-          uses.push({
-            use: definition,
-            line: lineIndex + 1,
-            char: lineContent.indexOf(token) + 1,
-          });
+    for (const definition of definitions) {
+      const regex = new RegExp(`\\b${definition.unchangedName}\\b`, 'g');
+      let match;
+      while ((match = regex.exec(lineContent)) !== null) {
+        uses.push({
+          use: definition,
+          line: lineIndex + 1,
+          char: match.index + 1,
+        });
 
-          // console.log(`Matched ${definition.unchangedName} at line ${lineIndex + 1}, char ${lineContent.indexOf(token) + 1}`);
-        }
+        // console.log(`Matched ${definition.unchangedName} at line ${lineIndex + 1}, char ${match.index + 1}`);
       }
     }
   }
