@@ -7,9 +7,12 @@ import { filterFunctionList } from "./utils/ListUtils.ts";
 import type { Config as ConfigType } from "./utils/classes/Config.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
 import { getUtilsPath } from "./utils/Scripts.ts";
+import { SkriptDoc } from "./utils/classes/SkriptDocs.ts";
+import { parseSkriptDocs } from "./utils/SkDoc.ts";
 
 export let defs: FunctionType[] = [];
 export let imports: Import[] = [];
+export let functionDocs: SkriptDoc[] = [];
 imports = []; // shut up deno please
 
 export let Config: ConfigType = BaseConfig;
@@ -38,6 +41,10 @@ export function setImports(newImports: Import[]) {
   imports = newImports;
 }
 
+export function setFunctionDocs(newDocs: SkriptDoc[]) {
+  functionDocs = newDocs;
+}
+
 export async function loadAllDefinitions() {
   defs = [];
   for await (const entry of Deno.readDir(utilsDir)) {
@@ -48,7 +55,7 @@ export async function loadAllDefinitions() {
       
       const content = await Deno.readTextFile(`${utilsDir}/${entry.name}`);
       const funcs = await parseFunctions(content, entry.name);
-      
+
       defs.push(...funcs);
     }
   }
@@ -72,7 +79,13 @@ export async function parseContent(content: string): Promise<FunctionType[]> {
   
   const functions = parseFunctions(content, "");
   const uses = await findUses(content, Object.values(defs).flat());
-  
+  const docs = parseSkriptDocs(content);
+
+  if (docs.length > 0) {
+    console.log(docs);
+  }
+
+  functionDocs.push(...docs);
   registry['functions'] = functions;
   registry['functionCalls'] = filterUseList(uses);
 
@@ -101,8 +114,9 @@ export async function parseContent(content: string): Promise<FunctionType[]> {
       required.push(found);
     }
 
-    if (func.use.classDependencies) {
-      func.use.classDependencies.forEach((dep) => {
+    const classDependencies: Import[] = functionDocs.find((doc) => doc.name === func.use.unchangedName)?.dependencies || [];
+    if (classDependencies.length > 0) {
+      classDependencies.forEach((dep: Import) => {
         if (!imports.find((imp) => imp.class === dep.class)) {
           imports.push(dep);
         }

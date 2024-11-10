@@ -4,7 +4,13 @@ import:
   java.time.Instant
   java.time.temporal.ChronoUnit
 
-# Dependencies: java.time.Instant, java.time.Duration
+# @name Time_ago
+# @description Returns a string representing the time elapsed since the given time
+#
+# @param {string} timeStr ["0"] - The time to compare
+# @returns {string} - The time elapsed since the given time
+# @dependencies: java.time.Instant, java.time.Duration
+
 function Time_ago(timeStr: string) :: string:
   set {_parsedTime} to Instant.parse({_timeStr})
   set {_now} to Instant.now()
@@ -19,7 +25,13 @@ function Time_ago(timeStr: string) :: string:
 
   return "%{_duration}.toSeconds()% seconds ago"
 
-# Dependencies: java.time.Instant, java.time.Duration
+# @name Time_agoUnix
+# @description Returns a string representing the time elapsed since the given time
+#
+# @param {integer} time - The time to compare
+# @returns {string} - The time elapsed since the given time
+# @dependencies: java.time.Instant, java.time.Duration
+
 function Time_agoUnix(time: integer) :: string:
   set {_parsedTime} to Instant.ofEpochSecond({_time})
   set {_now} to Instant.now()
@@ -34,7 +46,13 @@ function Time_agoUnix(time: integer) :: string:
 
   return "%{_duration}.toSeconds()% seconds ago"
 
-# Dependencies: java.time.Instant, java.time.Duration
+# @name Time_durationBetween
+# @description Returns a string representing the duration between two times
+#
+# @param {string} timeStr1 - The first time
+# @param {string} timeStr2 - The second time
+# @dependencies: java.time.Instant, java.time.Duration
+
 function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
   set {_parsedTime1} to Instant.parse({_timeStr1})
   set {_parsedTime2} to Instant.parse({_timeStr2})
@@ -49,7 +67,13 @@ function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
 
   return "%{_duration}.toSeconds()% seconds"
 
-# Dependencies: java.time.Instant, java.time.Duration
+# @name Time_durationBetweenUnix
+# @description Returns a string representing the duration between two times
+#
+# @param {integer} time1 - The first time
+# @param {integer} time2 - The second time
+# @dependencies: java.time.Instant, java.time.Duration
+
 function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
   set {_parsedTime1} to Instant.ofEpochSecond({_time1})
   set {_parsedTime2} to Instant.ofEpochSecond({_time2})
@@ -64,9 +88,22 @@ function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
 
   return "%{_duration}.toSeconds()% seconds"
 
-# Dependencies: java.time.Instant
+# @name Time_getUnixFromStr
+# @description Returns the Unix time from a string
+#
+# @param {string} timeStr - The time string
+# @returns {integer} - The Unix time
+# @dependencies: java.time.Instant
+
 function Time_getUnixFromStr(timeStr: string) :: integer:
   return Instant.parse({_timeStr}).getEpochSecond()
+
+# @name Time_getStrFromUnix
+# @description Returns the string from a Unix time
+#
+# @param {integer} time - The Unix time
+# @returns {string} - The time string
+# @dependencies: java.time.Instant
 
 function Time_getDurationString(duration: number) :: string:
   set {_result} to ""

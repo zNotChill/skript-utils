@@ -8,14 +8,26 @@ import:
   java.util.ArrayList
   java.util.List
 
-function prevent_backtracking(path: string) :: string:
+# @name File_preventBacktracking
+# @description Prevents backtracking in a file path
+#
+# @param {string} path - The path to prevent backtracking in
+# @returns {string} - The path without backtracking
+
+function File_preventBacktracking(path: string) :: string:
   if {_path} contains "..":
     replace all ".." in {_path} with ""
   if {_path} starts with "/":
     replace first "/" in {_path} with ""
   return {_path}
 
-# Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
+# @name File_formatFileList
+# @description Formats a file list
+#
+# @param {string} fileList - The file list to format
+# @returns {strings} - The formatted file list
+# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
+
 function File_formatFileList(fileList: string) :: strings:
   set {_files::*} to split {_fileList} by ","
   set {_formattedFiles::*} to new ArrayList()
@@ -29,7 +41,13 @@ function File_formatFileList(fileList: string) :: strings:
 
   return {_formattedFiles::*}
 
-# Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+# @name File_getFilesInDir
+# @description Gets the files in a directory
+#
+# @param {string} path - The path of the directory
+# @returns {strings} - The files in the directory
+# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+
 function File_getFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
   set {_files} to {_file}.listFiles()
@@ -40,7 +58,13 @@ function File_getFilesInDir(path: string) :: strings:
 
   return List_removeEmptyEntries({_files::*})
 
-# Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+# @name File_recGetFilesInDir
+# @description Recursively gets the files in a directory
+#
+# @param {string} path - The path of the directory
+# @returns {strings} - The files in the directory
+# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+
 function File_recGetFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
   set {_files} to {_file}.listFiles()
@@ -61,22 +85,47 @@ function File_recGetFilesInDir(path: string) :: strings:
 
   return List_removeEmptyEntries({_formattedFiles::*})
 
+# @name File_getRelativePath
+# @description Gets the relative path of a file
+#
+# @param {string} path - The path of the file
+# @returns {string} - The relative path of the file
+
 function File_getRelativePath(path: string) :: string:
   replace Server_getPath() in {_path} with ""
   return {_path}
 
-# Dependencies: java.nio.file.Files, java.nio.file.Paths
+# @name File_getRelativeFileContent
+# @description Gets the content of a file relative to the server path
+#
+# @param {string} relative_path - The relative path of the file
+# @returns {string} - The content of the file
+#
+# @dependencies: java.nio.file.Files, java.nio.file.Paths
+
 function File_getRelativeFileContent(relative_path: string) :: string:
-  set {_path} to try Paths.get(prevent_backtracking(Text_concat(Server_getPath(), "\\%{_relative_path}%")))
+  set {_path} to try Paths.get(File_preventBacktracking(Text_concat(Server_getPath(), "\\%{_relative_path}%")))
   set {_content} to try Files.readString({_path})
   if {_content} is not set:
     return "File not found"
   return {_content}
 
+# @name File_getFileContent
+# @description Gets the content of a file
+#
+# @param {string} path - The path of the file
+# @returns {string} - The content of the file
+
 function File_fixPath(path: string) :: string:
   replace all "/" in {_path} with "\\"
   replace all "\" in {_path} with "\\"
   return {_path}
+
+# @name File_fixBackslashes
+# @description Fixes backslashes in a file path
+#
+# @param {string} path - The path to fix backslashes in
+# @returns {string} - The path with fixed backslashes
 
 function File_fixBackslashes(path: string) :: string:
   replace all "\\" in {_path} with "/"

@@ -16,8 +16,7 @@ export type FunctionType = {
   highestLine: number,
   lowestLine: number,
   functionContent: string,
-  filePath: string,
-  classDependencies?: Import[]
+  filePath: string
 }
 
 export type FunctionCallType = {

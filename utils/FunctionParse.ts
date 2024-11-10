@@ -45,7 +45,6 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
         lowestLine: -1,
         functionContent: "",
         filePath: filePath,
-        classDependencies: classDependencies,
       }
 
       // Get function parameters

@@ -10,6 +10,10 @@ import:
   java.nio.file.Paths
   java.util.ArrayList
 
-# Dependencies: java.io.File
+# @name Server_getPath
+# @description Returns the path of the server
+#
+# @returns {string} - The path of the server
+# @dependencies: java.io.File
 function Server_getPath() :: string:
   return new File(".").getCanonicalPath()

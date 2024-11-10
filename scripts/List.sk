@@ -2,7 +2,13 @@
 import:
   java.util.ArrayList
 
-# Dependencies: java.util.ArrayList
+# @name List_removeEmptyEntries
+# @description Removes empty entries from a list
+#
+# @param {strings} list - The list to remove empty entries from
+# @returns {strings} - The list without empty entries
+# @dependencies: java.util.ArrayList
+
 function List_removeEmptyEntries(list: strings) :: strings:
   set {_formattedList::*} to new ArrayList()
   
@@ -11,6 +17,12 @@ function List_removeEmptyEntries(list: strings) :: strings:
       add loop-value to {_formattedList::*}
   
   return {_formattedList::*}
+
+# @name List_getDuplicates
+# @description Gets the duplicates in a list
+#
+# @param {objects} list - The list to get duplicates from
+# @returns {objects} - The duplicates in the list
 
 function List_getDuplicates(list: objects) :: objects:
   clear {_duplicates::*}
@@ -23,6 +35,13 @@ function List_getDuplicates(list: objects) :: objects:
     else:
       add {_item} to {_newList::*}
   return {_duplicates::*}
+
+# @name List_cap
+# @description Caps a list
+#
+# @param {objects} list - The list to cap
+# @param {number} cap - The cap of the list
+# @returns {objects} - The capped list
 
 function List_cap(list: objects, cap: number) :: objects:
   clear {_newList::*}

@@ -1,3 +1,10 @@
+
+# @name Vector_parseFromString
+# @description Parses a string into a vector
+#
+# @param {string} str - The string to parse
+# @returns {vector} - The vector
+
 function Vector_parseFromString(str: string) :: vector:
   # format: x: x, y: y, z: z
   set {_str::*} to split {_str} at ","
@@ -15,6 +22,12 @@ function Vector_parseFromString(str: string) :: vector:
       set {_z} to {_value} parsed as a number
   
   return vector({_x}, {_y}, {_z})
+
+# @name Vector_getLookVector
+# @description Gets the look vector of a location
+#
+# @param {location} loc - The location to get the look vector of
+# @returns {vector} - The look vector
 
 function Vector_getLookVector(loc: location) :: vector:
   return vector from yaw {_loc}'s yaw and pitch {_loc}'s pitch

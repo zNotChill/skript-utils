@@ -1,4 +1,12 @@
-function Color_hexToRGB(hex: string) :: numbers:
+
+# @name Color_hexToRGB
+# @description Converts a hex color to RGB
+# @description Should either start with "##" or nothing at all. A single "#" will not function properly.
+#
+# @param {string} hex - The hex color to convert
+# @returns {numbers} - The RGB values
+
+function Color_hexToRGB(hex: string) :: object:
   replace all "##" with "" in {_hex}
   set {_s::*} to split "0123456789abcdefklmnor" at ""
   loop 3 times:
