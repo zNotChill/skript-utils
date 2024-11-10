@@ -67,3 +67,32 @@ function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
 # Dependencies: java.time.Instant
 function Time_getUnixFromStr(timeStr: string) :: integer:
   return Instant.parse({_timeStr}).getEpochSecond()
+
+function Time_getDurationString(duration: number) :: string:
+  set {_result} to ""
+  set {_hours} to 0
+  set {_minutes} to 0
+  set {_seconds} to {_seconds}
+
+  if {_seconds} >= 3600:
+    set {_hours} to floor({_seconds} / 3600)
+    set {_seconds} to mod({_seconds}, 3600)
+    set {_result} to "%{_hours}%h"
+    if {_seconds} >= 60:
+      set {_minutes} to floor({_seconds} / 60)
+      set {_seconds} to mod({_seconds}, 60)
+      if {_hours} > 0:
+        set {_result} to "%{_result}% %{_minutes}%m"
+      else:
+        set {_result} to "%{_minutes}%m"
+  else:
+    if {_seconds} is greater than 60:
+      set {_minutes} to floor({_seconds} / 60)
+      set {_seconds} to mod({_seconds}, 60)
+      set {_result} to "%{_minutes}%m"
+    if {_seconds} is greater than 0:
+      if {_minutes} > 0:
+        set {_result} to "%{_result}% %{_seconds}%s"
+      else:
+        set {_result} to "%{_seconds}%s"
+  return {_result}

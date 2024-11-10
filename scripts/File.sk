@@ -16,7 +16,7 @@ function prevent_backtracking(path: string) :: string:
   return {_path}
 
 # Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
-function Files_formatFileList(fileList: string) :: strings:
+function File_formatFileList(fileList: string) :: strings:
   set {_files::*} to split {_fileList} by ","
   set {_formattedFiles::*} to new ArrayList()
 
@@ -30,10 +30,10 @@ function Files_formatFileList(fileList: string) :: strings:
   return {_formattedFiles::*}
 
 # Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
-function Files_getFilesInDir(path: string) :: strings:
+function File_getFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
   set {_files} to {_file}.listFiles()
-  set {_files::*} to Files_formatFileList("%{_files}%")
+  set {_files::*} to File_formatFileList("%{_files}%")
 
   loop {_files::*}:
     add loop-value to {_formattedFiles::*}
@@ -41,10 +41,10 @@ function Files_getFilesInDir(path: string) :: strings:
   return List_removeEmptyEntries({_files::*})
 
 # Dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
-function Files_recGetFilesInDir(path: string) :: strings:
+function File_recGetFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
   set {_files} to {_file}.listFiles()
-  set {_files::*} to Files_formatFileList("%{_files}%")
+  set {_files::*} to File_formatFileList("%{_files}%")
 
   loop {_files::*}:
     add 1 to {_i}
@@ -56,28 +56,28 @@ function Files_recGetFilesInDir(path: string) :: strings:
     if {_fileCast}.isFile():
       add loop-value to {_formattedFiles::*}
     else:
-      set {_subFiles::*} to Files_recGetFilesInDir(loop-value)
+      set {_subFiles::*} to File_recGetFilesInDir(loop-value)
       add {_subFiles::*} to {_formattedFiles::*}
 
   return List_removeEmptyEntries({_formattedFiles::*})
 
-function Files_getRelativePath(path: string) :: string:
+function File_getRelativePath(path: string) :: string:
   replace Server_getPath() in {_path} with ""
   return {_path}
 
 # Dependencies: java.nio.file.Files, java.nio.file.Paths
-function Files_getRelativeFileContent(relative_path: string) :: string:
-  set {_path} to try Paths.get(prevent_backtracking(String_concat(Server_getPath(), "\\%{_relative_path}%")))
+function File_getRelativeFileContent(relative_path: string) :: string:
+  set {_path} to try Paths.get(prevent_backtracking(Text_concat(Server_getPath(), "\\%{_relative_path}%")))
   set {_content} to try Files.readString({_path})
   if {_content} is not set:
     return "File not found"
   return {_content}
 
-function Files_fixPath(path: string) :: string:
+function File_fixPath(path: string) :: string:
   replace all "/" in {_path} with "\\"
   replace all "\" in {_path} with "\\"
   return {_path}
 
-function Files_fixBackslashes(path: string) :: string:
+function File_fixBackslashes(path: string) :: string:
   replace all "\\" in {_path} with "/"
   return {_path}

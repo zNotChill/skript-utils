@@ -1,0 +1,29 @@
+function Test_announce(test_id: string, success: boolean = true):
+  if {_success} = true:
+    set {_prefix} to "✔"
+    set {_color} to "&a"
+    set {_text} to "succeeded"
+    set {_matched} to "matched"
+  else:
+    set {_prefix} to "✖"
+    set {_color} to "&c"
+    set {_text} to "failed"
+    set {_matched} to "did not match"
+
+  broadcast "%{_color}%%{_prefix}% &7Test %{_color}%%{_test_id}% &7%{_text}%. Value %{_color}%%{-tests::%{_test_id}%::value}% &7%{_matched}% %{_color}%%{-tests::%{_test_id}%::expected}%&7."
+  delete {-tests::%{_test_id}%::*}
+
+function Test_assert(test_id: string, value: object, expected: object):
+  set {-tests::%{_test_id}%::value} to "%{_value}%"
+  set {-tests::%{_test_id}%::expected} to "%{_expected}%"
+
+  if {_value} = {_expected}:
+    Test_announce({_test_id}, true)
+  else:
+    Test_announce({_test_id}, false)
+
+function Test_assertEqual(test_id: string, value: object, expected: object):
+  Test_assert({_test_id}, "%{_value}%", "%{_expected}%")
+
+function Test_assertNotEqual(test_id: string, value: object, expected: object):
+  Test_assert({_test_id}, "%{_value}%" != "%{_expected}%", true)

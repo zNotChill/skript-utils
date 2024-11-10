@@ -1,0 +1,20 @@
+function Vector_parseFromString(str: string) :: vector:
+  # format: x: x, y: y, z: z
+  set {_str::*} to split {_str} at ","
+  loop {_str::*}:
+    set {_split::*} to split loop-value at ":"
+    set {_key} to {_split::1}
+    set {_value} to {_split::2}
+    replace all " " in {_key} with ""
+    replace all " " in {_value} with ""
+    if {_key} = "x":
+      set {_x} to {_value} parsed as a number
+    if {_key} = "y":
+      set {_y} to {_value} parsed as a number
+    if {_key} = "z":
+      set {_z} to {_value} parsed as a number
+  
+  return vector({_x}, {_y}, {_z})
+
+function Vector_getLookVector(loc: location) :: vector:
+  return vector from yaw {_loc}'s yaw and pitch {_loc}'s pitch

@@ -1,0 +1,33 @@
+
+import:
+  java.util.ArrayList
+
+# Dependencies: java.util.ArrayList
+function List_removeEmptyEntries(list: strings) :: strings:
+  set {_formattedList::*} to new ArrayList()
+  
+  loop {_list::*}:
+    if loop-value != "":
+      add loop-value to {_formattedList::*}
+  
+  return {_formattedList::*}
+
+function List_getDuplicates(list: objects) :: objects:
+  clear {_duplicates::*}
+  clear {_newList::*}
+
+  loop {_list::*}:
+    set {_item} to loop-value
+    if {_newList::*} contains {_item}:
+      add {_item} to {_duplicates::*}
+    else:
+      add {_item} to {_newList::*}
+  return {_duplicates::*}
+
+function List_cap(list: objects, cap: number) :: objects:
+  clear {_newList::*}
+  loop {_list::*}:
+    set {_item} to loop-value
+    if size of {_newList::*} < {_cap}:
+      add {_item} to {_newList::*}
+  return {_newList::*}

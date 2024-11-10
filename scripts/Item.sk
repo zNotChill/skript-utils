@@ -1,0 +1,7 @@
+
+function Item_rename(item: item, text: string) :: item:
+  set name of {_item} to formatted Text_formatText({text})
+  return {_item}
+
+function Item_setLore(item: item, line: integer, text: string) :: item:
+  set line {_line} of lore of {_item} to formatted Text_formatText({_text})

@@ -1,0 +1,12 @@
+
+function Velocity_get(entity: entity) :: vector:
+  return {_entity}'s velocity
+
+function Velocity_getX(entity: entity) :: number:
+  return x coord of Velocity_get({_entity})
+
+function Velocity_getY(entity: entity) :: number:
+  return y coord of Velocity_get({_entity})
+
+function Velocity_getZ(entity: entity) :: number:
+  return z coord of Velocity_get({_entity})

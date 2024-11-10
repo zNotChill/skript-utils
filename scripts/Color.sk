@@ -1,0 +1,8 @@
+function Color_hexToRGB(hex: string) :: numbers:
+  replace all "##" with "" in {_hex}
+  set {_s::*} to split "0123456789abcdefklmnor" at ""
+  loop 3 times:
+    set {_n} to subtext of {_hex} from characters (loop-value -1)*2+1 to loop-value*2 in lower case
+    add (index of first element out of (split {_n} at "") in "0123456789abcdefklmnor" -1)* 16 to {_rgb::%loop-value-1%}
+    add index of 2nd element out of (split {_n} at "") in "0123456789abcdefklmnor"-1  to {_rgb::%loop-value-1%}
+  return rgb({_rgb::1}, {_rgb::2}, {_rgb::3})

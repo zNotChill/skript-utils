@@ -66,7 +66,7 @@ async function watchWorkspace() {
   }
 
   let config = await getConfig();
-  await copyUtilsToAppData(import.meta.dirname + "/script-utils" || Deno.cwd());
+  await copyUtilsToAppData(import.meta.dirname + "/scripts" || Deno.cwd());
   const main = await import("./main.ts");
 
   main.setConfig(config);

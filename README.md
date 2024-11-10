@@ -4,8 +4,4 @@ An ever-expanding library of Skript utilities, all packaged into one file with o
 
 # TODO
 
-- make the code nicer
-- add more utilities
-- ~~make it globally usable~~
-- fix uses parsing errors
-  - particularly in-string function calls like "%Time_durationBetweenUnix({_serverStartUnix}, getUnix())%" that don't work!!!
+- make the packager ignore commented lines in the utils scripts
