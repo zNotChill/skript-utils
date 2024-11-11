@@ -14,7 +14,6 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
   filteredLines.forEach((line: string) => {
     lineCount++;
     if (line.trim().startsWith("function")) {
-
       
       // Get basic function information
       const functionName = line.split(" ")[1].split("(")[0];
@@ -112,7 +111,30 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
           foundContent = true;
         } else {
           // remove the first indent
-          const lineContent = currentLineContent.replace(indentType.repeat(2), "");
+          let lineContent = currentLineContent.replace(indentType.repeat(2), "");
+
+          lineContent = lineContent.split("\n").map((line) => {
+            const isSkDocLine = line.startsWith("#@") || line.startsWith("# @");
+            const startsWithHash = line.trim().startsWith("#");
+            const containsDoubleHash = line.includes("##");
+            const containsSingleHashMidLine = line.includes("#") && !line.trim().startsWith("#") && !containsDoubleHash;
+          
+            if (isSkDocLine || startsWithHash) {
+              return "";
+            }
+
+            if (containsDoubleHash) {
+              // TODO: make this work since comments arent removed from lines with double hashes
+              return line;
+            }
+          
+            if (containsSingleHashMidLine) {
+              return line.split("#")[0].trim();
+            }
+          
+            return line;
+          }).join("\n");
+            
           functionContent += lineContent + "\n";
         }
 

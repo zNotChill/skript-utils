@@ -55,7 +55,6 @@ export async function loadAllDefinitions() {
       
       const content = await Deno.readTextFile(`${utilsDir}/${entry.name}`);
       const funcs = await parseFunctions(content, entry.name);
-
       defs.push(...funcs);
     }
   }
@@ -65,7 +64,7 @@ const requiredFunctions: FunctionType[] = [];
 
 export async function parseFile(filepath: string): Promise<FunctionType[]> {
   const data = await Deno.readFile(filepath);
-  const content = new TextDecoder().decode(data);
+  let content = new TextDecoder().decode(data);
 
   return parseContent(content);
 }
