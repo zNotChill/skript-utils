@@ -54,4 +54,7 @@ function Test_assertEqual(test_id: string, value: object, expected: object):
 # @param {object} expected - The expected value
 
 function Test_assertNotEqual(test_id: string, value: object, expected: object):
-  Test_assert({_test_id}, "%{_value}%" != "%{_expected}%", true)
+  if {_value} != {_expected}:
+    Test_announce({_test_id}, true)
+  else:
+    Test_announce({_test_id}, false)

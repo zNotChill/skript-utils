@@ -3,7 +3,7 @@
   "indentChar": "SPACE",
   "indentSize": 2,
   "codeDir": "./",
-  "outputDir": "Utils",
+  "outputDir": "./",
   "outputFileName": "Utils.sk",
   "excludeFiles": [],
   "parser": {

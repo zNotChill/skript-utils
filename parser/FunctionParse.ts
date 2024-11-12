@@ -1,15 +1,14 @@
 
-import { Config } from "../main.ts";
-import { VariableType } from "./classes/Functions.ts";
-import { FunctionType } from "./classes/Functions.ts";
-import { Import } from "./classes/Imports.ts";
+import main from "../main.ts";
+import { VariableType } from "../utils/classes/Functions.ts";
+import { FunctionType } from "../utils/classes/Functions.ts";
 
 export function parseFunctions(content: string, filePath: string): FunctionType[] {
   const registry: FunctionType[] = [];
   const lines = content.split("\n");
 
   // remove empty lines and comments
-  const filteredLines = lines.filter(line => !(line.trim().startsWith("//") || line.trim().length === 0));
+  const filteredLines = lines.filter(line => !(line.trim().startsWith("#") || line.trim().length === 0));
 
   let lineCount = 0;
   filteredLines.forEach((line: string) => {
@@ -18,23 +17,6 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
       
       // Get basic function information
       const functionName = line.split(" ")[1].split("(")[0];
-      
-      // Check if the line above starts with "# Dependencies"
-      let classDependencies: Import[] = [];
-      try {
-        const previousLine = filteredLines[lineCount - 2];
-        if (previousLine.trim().startsWith("# Dependencies")) {
-          const dependencies = previousLine.split(":")[1].split(",");
-          classDependencies = dependencies.map((dep: string) => {
-            return {
-              class: dep.trim(),
-            }
-          });
-        }
-      } catch (error) {
-        // do nothing
-        error
-      }
 
       const registryItem: FunctionType = {
         unchangedName: functionName,
@@ -52,7 +34,7 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
 
       try {
         line.split("(")[1].split(")")[0].split(",")
-      } catch (error) {}
+      } catch (_error) { /* */ }
       
       line.split("(")[1].split(")")[0].split(",")
         .forEach((value: string) => {
@@ -113,7 +95,7 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
         } else {
           let lineContent = currentLineContent;
 
-          if (Config.parser.removeComments) {
+          if (main.getConfig().parser.removeComments) {
             lineContent = lineContent.split("\n").map((line) => {
               const isSkDocLine = line.startsWith("#@") || line.startsWith("# @");
               const startsWithHash = line.trim().startsWith("#");

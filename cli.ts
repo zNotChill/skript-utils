@@ -5,6 +5,8 @@ import ora from "npm:ora@8.1.1";
 import type { Config as ConfigType } from "./utils/BaseConfig.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
 import { copyUtilsToAppData } from "./utils/Scripts.ts";
+import { SharedConstants } from "./utils/SharedConstants.ts";
+import main from "./main.ts";
 
 const workspace = Deno.cwd();
 const configPath = workspace + "/skript-utils.json";
@@ -66,8 +68,6 @@ async function watchWorkspace() {
   }
 
   let config = await getConfig();
-  await copyUtilsToAppData(import.meta.dirname + "/scripts" || Deno.cwd());
-  const main = await import("./main.ts");
 
   main.setConfig(config);
 
@@ -84,7 +84,7 @@ async function watchWorkspace() {
 
       debounceTimeout = setTimeout(async () => {
         const configReload = ora("Detected change in skript-utils.json. Reloading config and repackaging.").start();
-        await repackage(main, config);
+        await repackage();
         
         config = await getConfig();
         main.setConfig(config);
@@ -111,7 +111,7 @@ async function watchWorkspace() {
     debounceTimeout = setTimeout(async () => {
       changeSpinner.stop();
 
-      await repackage(main, config);
+      await repackage();
 
       const spinner = ora("Detected change in " + event.paths[0] + ". Repacking.").start();
       spinner.succeed();
@@ -120,10 +120,17 @@ async function watchWorkspace() {
   }
 }
 
-function repackage(main: typeof import("./main.ts"), config: ConfigType) {
+async function repackage() {
+
+  await copyUtilsToAppData(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
+  const config = main.getConfig();
+
   main.setDefs([]);
   main.setImports([]);
-  main.loadAllDefinitions().then(() => {
+  const docs = await main.loadAllDocs();
+  const defs = await main.loadAllDefinitions();
+
+  if (docs && defs) {
     main.parseAllFiles().then(() => {
       const packagedContent = main.packageFunctions();
       
@@ -133,5 +140,5 @@ function repackage(main: typeof import("./main.ts"), config: ConfigType) {
       Deno.writeTextFile(savePath, packagedContent);
       ora("Packed functions to " + savePath).succeed();
     });
-  });
+  }
 }

@@ -1,4 +1,4 @@
-import { Config } from "../main.ts";
+import main from "../main.ts";
 import { FunctionType } from "./classes/Functions.ts";
 
 export interface UseInfo {
@@ -16,7 +16,7 @@ export function findUses(content: string, definitions: FunctionType[]): UseInfo[
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
     const lineContent = lines[lineIndex];
 
-    if (lineContent.trim().startsWith(Config.commentChar)) {
+    if (lineContent.trim().startsWith(main.getConfig().commentChar)) {
       continue;
     }
 

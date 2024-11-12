@@ -1,5 +1,24 @@
 
-import { DocParam, SkriptDoc } from "./classes/SkriptDocs.ts";
+import main from "../main.ts";
+import { DocParam, SkriptDoc } from "../utils/classes/SkriptDocs.ts";
+import { getUtilsPath } from "../utils/Scripts.ts";
+
+export async function loadAllDocs(): Promise<SkriptDoc[]> {
+  main.setFunctionDocs([]);
+  for await (const entry of Deno.readDir(getUtilsPath())) {
+    if (entry.isFile) {
+      if(!entry.name.endsWith(".sk")) {
+        continue;
+      }
+      
+      const content = await Deno.readTextFile(`${getUtilsPath()}/${entry.name}`);
+      const docs = parseSkriptDocs(content);
+      main.getFunctionDocs().push(...docs);
+    }
+  }
+
+  return main.getFunctionDocs();
+}
 
 export function parseSkriptDocs(content: string): SkriptDoc[] {
   const docs: SkriptDoc[] = [];

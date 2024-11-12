@@ -15,7 +15,7 @@ function Velocity_get(entity: entity) :: vector:
 # @returns {number} - The x velocity of the entity
 
 function Velocity_getX(entity: entity) :: number:
-  return x coord of Velocity_get({_entity})
+  return x of Velocity_get({_entity})
 
 # @name Velocity_getY
 # @description Gets the y velocity of an entity
@@ -24,7 +24,7 @@ function Velocity_getX(entity: entity) :: number:
 # @returns {number} - The y velocity of the entity
 
 function Velocity_getY(entity: entity) :: number:
-  return y coord of Velocity_get({_entity})
+  return y of Velocity_get({_entity})
 
 # @name Velocity_getZ
 # @description Gets the z velocity of an entity
@@ -33,4 +33,4 @@ function Velocity_getY(entity: entity) :: number:
 # @returns {number} - The z velocity of the entity
 
 function Velocity_getZ(entity: entity) :: number:
-  return z coord of Velocity_get({_entity})
+  return z of Velocity_get({_entity})

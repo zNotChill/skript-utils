@@ -43,7 +43,7 @@ function Text_format(str: string, val1: string, val2: string = "", val3: string 
 # @returns {string} - The colored string
 
 function Text_coloredBoolean(value: boolean) :: string:
-  if {_value}:
+  if {_value} = true:
     return "&aTrue"
   return "&cFalse"
 
@@ -144,7 +144,7 @@ function Text_removeColorCodes(text: string) :: string:
       set {_deleteNextChar} to false
       continue
     add {_char} to {_output::*}
-  return "%join {_output::*} by ""%"
+  return join {_output::*} by ""
 
 # @name Text_formatText
 # @description Formats text
@@ -158,3 +158,12 @@ function Text_formatText(text: string) :: string:
     set {_text} to Text_toSmallFont({_text})
 
   return {_text}
+
+# @name Text_toNumber
+# @description Converts a string to a number
+#
+# @param {string} text - The text to convert
+# @returns {number} - The converted number
+
+function Text_toNumber(text: string) :: number:
+  return {_text} parsed as number
