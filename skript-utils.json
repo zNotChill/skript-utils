@@ -5,5 +5,8 @@
   "codeDir": "./",
   "outputDir": "Utils",
   "outputFileName": "Utils.sk",
-  "excludeFiles": []
+  "excludeFiles": [],
+  "parser": {
+    "removeComments": true
+  }
 }

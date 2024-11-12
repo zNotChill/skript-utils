@@ -4,7 +4,7 @@ import { FunctionType, Registry } from "./utils/classes/Functions.ts";
 import { Import } from "./utils/classes/Imports.ts";
 import { filterUseList } from "./utils/ListUtils.ts";
 import { filterFunctionList } from "./utils/ListUtils.ts";
-import type { Config as ConfigType } from "./utils/classes/Config.ts";
+import type { Config as ConfigType } from "./utils/BaseConfig.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
 import { getUtilsPath } from "./utils/Scripts.ts";
 import { SkriptDoc } from "./utils/classes/SkriptDocs.ts";
@@ -64,7 +64,7 @@ const requiredFunctions: FunctionType[] = [];
 
 export async function parseFile(filepath: string): Promise<FunctionType[]> {
   const data = await Deno.readFile(filepath);
-  let content = new TextDecoder().decode(data);
+  const content = new TextDecoder().decode(data);
 
   return parseContent(content);
 }
@@ -77,12 +77,20 @@ export async function parseContent(content: string): Promise<FunctionType[]> {
   }
   
   const functions = parseFunctions(content, "");
-  const uses = await findUses(content, Object.values(defs).flat());
-  const docs = parseSkriptDocs(content);
-
-  if (docs.length > 0) {
-    console.log(docs);
+  
+  let uses = await findUses(content, Object.values(defs).flat());
+  
+  if (content.startsWith("# skript-utils import all")) {
+    uses = Object.values(defs).flat().map((def) => {
+      return {
+        use: def,
+        line: 1230,
+        char: 0,
+      }
+    });
   }
+
+  const docs = parseSkriptDocs(content);
 
   functionDocs.push(...docs);
   registry['functions'] = functions;

@@ -1,4 +1,3 @@
-import { Config } from "./classes/Config.ts";
 
 export const BaseConfig: Config = {
   commentChar: "#",
@@ -8,4 +7,20 @@ export const BaseConfig: Config = {
   outputDir: "Utils",
   outputFileName: "Utils.sk",
   excludeFiles: [],
+  parser: {
+    removeComments: true,
+  }
+}
+
+export type Config = {
+  commentChar: string,
+  indentChar: "SPACE" | "TAB",
+  indentSize: number,
+  codeDir: string,
+  outputDir: string,
+  outputFileName: string,
+  excludeFiles: string[],
+  parser: {
+    removeComments: boolean,
+  }
 }

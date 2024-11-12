@@ -2,7 +2,7 @@
 
 import * as cliffy from "https://deno.land/x/cliffy@v0.25.7/mod.ts";
 import ora from "npm:ora@8.1.1";
-import type { Config as ConfigType } from "./utils/classes/Config.ts";
+import type { Config as ConfigType } from "./utils/BaseConfig.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
 import { copyUtilsToAppData } from "./utils/Scripts.ts";
 

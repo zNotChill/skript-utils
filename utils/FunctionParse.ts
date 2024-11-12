@@ -1,4 +1,5 @@
 
+import { Config } from "../main.ts";
 import { VariableType } from "./classes/Functions.ts";
 import { FunctionType } from "./classes/Functions.ts";
 import { Import } from "./classes/Imports.ts";
@@ -110,30 +111,33 @@ export function parseFunctions(content: string, filePath: string): FunctionType[
         if (currentLineIndentLevel < firstLineIndentLevel) {
           foundContent = true;
         } else {
-          // remove the first indent
-          let lineContent = currentLineContent.replace(indentType.repeat(2), "");
+          let lineContent = currentLineContent;
 
-          lineContent = lineContent.split("\n").map((line) => {
-            const isSkDocLine = line.startsWith("#@") || line.startsWith("# @");
-            const startsWithHash = line.trim().startsWith("#");
-            const containsDoubleHash = line.includes("##");
-            const containsSingleHashMidLine = line.includes("#") && !line.trim().startsWith("#") && !containsDoubleHash;
-          
-            if (isSkDocLine || startsWithHash) {
-              return "";
-            }
+          if (Config.parser.removeComments) {
+            lineContent = lineContent.split("\n").map((line) => {
+              const isSkDocLine = line.startsWith("#@") || line.startsWith("# @");
+              const startsWithHash = line.trim().startsWith("#");
+              const containsDoubleHash = line.includes("##");
+              const containsSingleHashMidLine = line.includes("#") && !line.trim().startsWith("#") && !containsDoubleHash;
+            
+              if (isSkDocLine || startsWithHash) {
+                return "";
+              }
 
-            if (containsDoubleHash) {
-              // TODO: make this work since comments arent removed from lines with double hashes
+              if (containsDoubleHash) {
+                // TODO: make this work since comments arent removed from lines with double hashes
+                return line;
+              }
+            
+              if (containsSingleHashMidLine) {
+                return line.split("#")[0];
+              }
+            
               return line;
-            }
-          
-            if (containsSingleHashMidLine) {
-              return line.split("#")[0].trim();
-            }
-          
-            return line;
-          }).join("\n");
+            }).join("\n");
+          }
+
+          lineContent = lineContent.replace(indentType.repeat(2), "");
             
           functionContent += lineContent + "\n";
         }
