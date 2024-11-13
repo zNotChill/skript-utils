@@ -21,40 +21,19 @@ function Test_announce(test_id: string, success: boolean = true):
   delete {-tests::%{_test_id}%::*}
 
 # @name Test_assert
-# @description Asserts a value
+# @description Compares a value to an expected value
 #
 # @param {string} test_id - The ID of the test
 # @param {object} value - The value to assert
 # @param {object} expected - The expected value
 
-function Test_assert(test_id: string, value: object, expected: object):
+function Test_assert(test_id: string, value: object, expected: object) :: boolean:
   set {-tests::%{_test_id}%::value} to "%{_value}%"
   set {-tests::%{_test_id}%::expected} to "%{_expected}%"
 
   if {_value} = {_expected}:
     Test_announce({_test_id}, true)
+    return true
   else:
     Test_announce({_test_id}, false)
-
-# @name Test_assertEqual
-# @description Asserts that two values are equal
-#
-# @param {string} test_id - The ID of the test
-# @param {object} value - The value to assert
-# @param {object} expected - The expected value
-
-function Test_assertEqual(test_id: string, value: object, expected: object):
-  Test_assert({_test_id}, "%{_value}%", "%{_expected}%")
-
-# @name Test_assertNotEqual
-# @description Asserts that two values are not equal
-#
-# @param {string} test_id - The ID of the test
-# @param {object} value - The value to assert
-# @param {object} expected - The expected value
-
-function Test_assertNotEqual(test_id: string, value: object, expected: object):
-  if {_value} != {_expected}:
-    Test_announce({_test_id}, true)
-  else:
-    Test_announce({_test_id}, false)
+    return false

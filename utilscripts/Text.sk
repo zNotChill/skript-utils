@@ -1,22 +1,4 @@
 
-# @name Text_concat
-# @description Concatenates multiple strings
-#
-# @param {string} str1 - The first string
-# @param {string} str2 - The second string
-# @param {string} str3 - The third string
-# @param {string} str4 - The fourth string
-# @param {string} str5 - The fifth string
-# @param {string} str6 - The sixth string
-# @param {string} str7 - The seventh string
-# @param {string} str8 - The eighth string
-# @param {string} str9 - The ninth string
-# @param {string} str10 - The tenth string
-# @returns {string} - The concatenated string
-
-function Text_concat(str1: string = "", str2: string = "", str3: string = "", str4: string = "", str5: string = "", str6: string = "", str7: string = "", str8: string = "", str9: string = "", str10: string = "") :: string:
-  return "%{_str1}%%{_str2}%%{_str3}%%{_str4}%%{_str5}%%{_str6}%%{_str7}%%{_str8}%%{_str9}%%{_str10}%"
-
 # @name Text_format
 # @description Formats a string with multiple values
 #
