@@ -104,7 +104,7 @@ function File_getRelativePath(path: string) :: string:
 # @dependencies: java.nio.file.Files, java.nio.file.Paths
 
 function File_getRelativeFileContent(relative_path: string) :: object:
-  set {_path} to try Paths.get(File_preventBacktracking(Text_concat(Server_getPath(), "\\%{_relative_path}%")))
+  set {_path} to try Paths.get(File_preventBacktracking(Server_getPath() + "\\%{_relative_path}%"))
   set {_content} to try Files.readString({_path})
   if {_content} is not set:
     return false
