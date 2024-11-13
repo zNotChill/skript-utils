@@ -23,7 +23,7 @@ function Location_getExtremes(pos1: location, pos2: location) :: locations:
 # @returns {boolean} - Whether the location is within the AABB
 
 function Location_checkAABB(loc: location, corner1: location, corner2: location) :: boolean:
-  set {_extremes::*} to getExtremes({_corner1}, {_corner2})
+  set {_extremes::*} to Location_getExtremes({_corner1}, {_corner2})
   set {_lowest} to {_extremes::1}
   set {_highest} to {_extremes::2}
   if:
