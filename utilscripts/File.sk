@@ -1,12 +1,3 @@
-import:
-  java.io.IOException
-  java.nio.file.DirectoryStream
-  java.nio.file.Files
-  java.io.File
-  java.nio.file.Path
-  java.nio.file.Paths
-  java.util.ArrayList
-  java.util.List
 
 # @name File_preventBacktracking
 # @description Prevents backtracking in a file path

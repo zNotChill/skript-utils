@@ -1,19 +1,9 @@
 
-import:
-  java.io.IOException
-  java.io.InputStream
-  java.net.URI
-  java.nio.file.Files
-  java.nio.file.Path
-  java.io.File
-  
-  java.nio.file.Paths
-  java.util.ArrayList
-
 # @name Server_getPath
 # @description Returns the path of the server
 #
 # @returns {string} - The path of the server
 # @dependencies: java.io.File
+
 function Server_getPath() :: string:
   return new File(".").getCanonicalPath()

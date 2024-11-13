@@ -1,9 +1,4 @@
 
-import:
-  java.time.Duration
-  java.time.Instant
-  java.time.temporal.ChronoUnit
-
 # @name Time_ago
 # @description Returns a string representing the time elapsed since the given time
 #

@@ -1,7 +1,4 @@
 
-import:
-  java.util.ArrayList
-
 # @name List_removeEmptyEntries
 # @description Removes empty entries from a list
 #
