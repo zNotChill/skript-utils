@@ -1,5 +1,4 @@
 import { UseInfo } from '../Uses.ts';
-import { Import } from './Imports.ts';
 
 export type VariableType = {
   isParameter: boolean,
@@ -16,7 +15,7 @@ export type FunctionType = {
   highestLine: number,
   lowestLine: number,
   functionContent: string,
-  filePath: string
+  filePath: string,
 }
 
 export type FunctionCallType = {
@@ -28,4 +27,5 @@ export type Registry = {
   functions: FunctionType[],
   functionCalls: UseInfo[],
   dependencies: FunctionType[],
+  requiredFunctions: FunctionType[],
 }

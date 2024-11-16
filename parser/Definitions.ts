@@ -17,5 +17,6 @@ export async function loadAllDefinitions(): Promise<FunctionType[]> {
     }
   }
 
-  return main.getDefs();
+  const defs = main.getDefs();
+  return defs;
 }

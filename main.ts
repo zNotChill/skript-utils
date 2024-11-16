@@ -15,6 +15,7 @@ class Main {
   private functionDocs: SkriptDoc[] = [];
   private requiredFunctions: FunctionType[] = [];
   public indent: string;
+  public parsedFiles: string[] = [];
 
   constructor() {
     this.setConfig(this.config);
@@ -37,16 +38,16 @@ class Main {
     return await loadAllDefinitions();
   }
 
-  public async parseAllFiles() {
-    await parseAllFiles();
+  public async parseAllFiles(): Promise<string[]> {
+    return await parseAllFiles();
   }
 
-  public async parseFile(filepath: string) {
-    return await parseFile(filepath);
+  public async parseFile(filepath: string, relativePath: string) {
+    return await parseFile(filepath, relativePath);
   }
 
-  public async parseContent(content: string) {
-    return await parseContent(content);
+  public async parseContent(content: string, relativePath: string) {
+    return await parseContent(content, relativePath);
   }
 
   public packageFunctions() {

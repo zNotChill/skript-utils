@@ -6,7 +6,12 @@ export const BaseConfig: Config = {
   codeDir: "./",
   outputDir: "Utils",
   outputFileName: "Utils.sk",
-  excludeFiles: [],
+  ignoredFiles: [], 
+  ignoredDirectories: [
+    "node_modules",
+    ".git",
+    ".vscode",
+  ],
   parser: {
     removeComments: true,
   }
@@ -19,7 +24,8 @@ export type Config = {
   codeDir: string,
   outputDir: string,
   outputFileName: string,
-  excludeFiles: string[],
+  ignoredFiles: string[],
+  ignoredDirectories: string[],
   parser: {
     removeComments: boolean,
   }

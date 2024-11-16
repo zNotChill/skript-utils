@@ -109,19 +109,19 @@ async function watchWorkspace() {
     }
 
     debounceTimeout = setTimeout(async () => {
+      console.clear();
       changeSpinner.stop();
 
-      await repackage();
-
+      
       const spinner = ora("Detected change in " + event.paths[0] + ". Repacking.").start();
       spinner.succeed();
       changeSpinner.start();
+      await repackage();
     }, 100);
   }
 }
 
 async function repackage() {
-
   await copyUtilsToAppData(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
   const config = main.getConfig();
 
@@ -131,7 +131,11 @@ async function repackage() {
   const defs = await main.loadAllDefinitions();
 
   if (docs && defs) {
-    main.parseAllFiles().then(() => {
+    console.log(`\nLoaded ${docs.length} docs and ${defs.length} definitions`);
+    main.parseAllFiles().then((files) => {
+      const relativeFiles = files.map((file) => file.replace(workspace + "/", ""));
+      console.log("\nParsed files:", relativeFiles.join(", "));
+      
       const packagedContent = main.packageFunctions();
       
       Deno.mkdir(workspace + "/" + config.outputDir, { recursive: true });
