@@ -2,6 +2,7 @@
 # @name Vector_parseFromString
 # @description Parses a string into a vector
 #
+# @author zNotChill
 # @param {string} str - The string to parse
 # @returns {vector} - The vector
 
@@ -26,6 +27,7 @@ function Vector_parseFromString(str: string) :: vector:
 # @name Vector_getLookVector
 # @description Gets the look vector of a location
 #
+# @author zNotChill
 # @param {location} loc - The location to get the look vector of
 # @returns {vector} - The look vector
 

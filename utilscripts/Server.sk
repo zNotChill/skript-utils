@@ -2,6 +2,7 @@
 # @name Server_getPath
 # @description Returns the path of the server
 #
+# @author zNotChill
 # @returns {string} - The path of the server
 # @dependencies: java.io.File
 

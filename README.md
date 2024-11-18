@@ -11,6 +11,8 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
 # TODO
 
 - make the packager ignore commented lines in the utils scripts
+- add @example
+- add multi-line @descriptions
 
 # Reviews
 ![hi](https://i.gyazo.com/049422ae73d4b84dfc1cf226c2390fbc.png)
@@ -22,6 +24,7 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
 # @name File_formatFileList
 # @description Formats a file list
 #
+# @author zNotChill
 # @param {string} fileList - The file list to format
 # @returns {strings} - The formatted file list
 # @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList

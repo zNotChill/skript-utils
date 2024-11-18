@@ -2,6 +2,7 @@
 # @name Number_parse
 # @description Parses a number into a string formatted by commas (e.g. 1,000,000)
 #
+# @author Unknown
 # @param {number} val - The number to parse
 # @returns {text} - The parsed number
 
@@ -17,6 +18,7 @@ function Number_parse(val: number) :: text:
 # @name Number_format
 # @description Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 #
+# @author Unknown
 # @param {number} n - The number to format
 # @returns {text} - The formatted number
 

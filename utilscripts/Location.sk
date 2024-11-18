@@ -2,6 +2,7 @@
 # @name Location_getExtremes
 # @description Gets the extremes of two locations
 #
+# @author zNotChill
 # @param {location} pos1 - The first position
 # @param {location} pos2 - The second position
 # @returns {locations} - The lowest and highest corners
@@ -17,6 +18,7 @@ function Location_getExtremes(pos1: location, pos2: location) :: locations:
 # @name Location_checkAABB
 # @description Checks if a location is within an AABB
 #
+# @author zNotChill
 # @param {location} loc - The location to check
 # @param {location} corner1 - The first corner of the AABB
 # @param {location} corner2 - The second corner of the AABB
@@ -36,3 +38,19 @@ function Location_checkAABB(loc: location, corner1: location, corner2: location)
   then:
     return true
   return false
+
+# @name Location_parseChunk
+# @description Parses a chunk from a string Vector2 location
+#
+# @author miberss
+# @param {string} chunk - The chunk to parse
+# @returns {location} - The parsed chunk coordinates
+# @example Location_parseChunk("world:0,0") -> chunk (0,0) of world
+
+function Location_parseChunk(chunk: string) :: chunk:
+  replace ":" in {_chunk} with ","
+  set {_coords::*} to split {_chunk} at ","
+  set {_coords::2} to {_coords::2} parsed as integer
+  set {_coords::3} to {_coords::3} parsed as integer
+  
+  return chunk at {_coords::2}, {_coords::3} in {_coords::1}

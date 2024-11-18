@@ -2,6 +2,7 @@
 # @name Text_format
 # @description Formats a string with multiple values
 #
+# @author zNotChill
 # @param {string} str - The string to format
 # @param {string} val1 - The first value
 # @param {string} val2 - The second value
@@ -32,6 +33,7 @@ function Text_coloredBoolean(value: boolean) :: string:
 # @name Text_toSmallFont
 # @description Converts text to small font
 #
+# @author zNotChill
 # @param {string} text - The text to convert
 # @returns {string} - The converted text
 
@@ -109,6 +111,7 @@ function Text_toSmallFont(text: string) :: string:
 # @name Text_removeColorCodes
 # @description Removes color codes from a string
 #
+# @author zNotChill
 # @param {string} text - The text to remove color codes from
 # @returns {string} - The text without color codes
 
@@ -131,6 +134,7 @@ function Text_removeColorCodes(text: string) :: string:
 # @name Text_formatText
 # @description Formats text
 #
+# @author zNotChill
 # @param {string} text - The text to format
 # @returns {string} - The formatted text
 
@@ -144,6 +148,7 @@ function Text_formatText(text: string) :: string:
 # @name Text_toNumber
 # @description Converts a string to a number
 #
+# @author zNotChill
 # @param {string} text - The text to convert
 # @returns {number} - The converted number
 

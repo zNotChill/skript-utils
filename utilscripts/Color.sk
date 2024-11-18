@@ -3,6 +3,7 @@
 # @description Converts a hex color to RGB
 # @description Should either start with "##" or nothing at all. A single "#" will not function properly.
 #
+# @author Unknown
 # @param {string} hex - The hex color to convert
 # @returns {numbers} - The RGB values
 
