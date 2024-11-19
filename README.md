@@ -21,11 +21,42 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
 # SkDoc formatting
 
 ```
-# @name File_formatFileList
-# @description Formats a file list
+# @name List_removeEmptyEntries
+# @description Removes empty entries from a list
 #
 # @author zNotChill
-# @param {string} fileList - The file list to format
-# @returns {strings} - The formatted file list
-# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
+# @param {strings} list - The list to remove empty entries from
+# @returns {strings} - The list without empty entries
+# @dependencies java.util.ArrayList
+# @example List_removeEmptyEntries("a", "", "b") -> "a", "b"
+```
+
+##### as JSON:
+
+```json
+{
+  "parameters": [
+    {
+      "unchangedName": "list",
+      "type": "strings",
+      "description": "The list to remove empty entries from"
+    }
+  ],
+  "dependencies": [
+    {
+      "class": "java.util.ArrayList"
+    }
+  ],
+  "name": "List_removeEmptyEntries",
+  "description": "Removes empty entries from a list",
+  "author": "zNotChill",
+  "returns": {
+    "type": "strings",
+    "description": "The list without empty entries"
+  },
+  "example": {
+    "function": "List_removeEmptyEntries(\"a\", \"\", \"b\")",
+    "returnedExample": "\"a\", \"b\""
+  }
+}
 ```
