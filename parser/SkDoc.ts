@@ -88,7 +88,7 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
           break;
         }
         case "@dependencies": {
-          const dependencies = contentLine.replace("@dependencies:", "").trim().split(",").map(dep => dep.trim());
+          const dependencies = contentLine.replace("@dependencies", "").trim().split(",").map(dep => dep.trim());
           
           skriptDoc.dependencies = dependencies.map(dep => ({ class: dep }));
           break;

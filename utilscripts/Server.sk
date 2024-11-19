@@ -4,7 +4,7 @@
 #
 # @author zNotChill
 # @returns {string} - The path of the server
-# @dependencies: java.io.File
+# @dependencies java.io.File
 
 function Server_getPath() :: string:
   return new File(".").getCanonicalPath()

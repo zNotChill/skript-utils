@@ -5,7 +5,8 @@
 # @author zNotChill
 # @param {strings} list - The list to remove empty entries from
 # @returns {strings} - The list without empty entries
-# @dependencies: java.util.ArrayList
+# @dependencies java.util.ArrayList
+# @example List_removeEmptyEntries("a", "", "b") -> "a", "b"
 
 function List_removeEmptyEntries(list: strings) :: strings:
   set {_formattedList::*} to new ArrayList()

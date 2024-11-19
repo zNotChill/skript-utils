@@ -23,10 +23,16 @@ async function doesConfigExist() {
 async function getConfig() {
   return JSON.parse(await Deno.readTextFile(configPath)) as ConfigType;
 }
+
 const watch = new cliffy.Command()
   .description("Watch for changes in your workspace")
   .action(() => {
     watchWorkspace();
+  });
+const updateData = new cliffy.Command()
+  .description("Update your stored data (docs, util files)")
+  .action(() => {
+    updateStoredData();
   });
 
 const { options } = await new cliffy.Command()
@@ -35,6 +41,7 @@ const { options } = await new cliffy.Command()
   .description("CLI for managing your Skript Utils workspace")
   .option("--init", "Initialize your workspace")
     .command("watch", watch)
+    .command("update-data", updateData)
     .parse(Deno.args);
 
 if(!options.init && Deno.args.length === 0) {
@@ -154,4 +161,24 @@ async function repackage() {
       ora("Packed functions to " + savePath).succeed();
     });
   }
+}
+
+async function updateStoredData() {
+  const spinner = ora("Updating stored data...").start();
+
+  main.setDefs([]);
+  main.setImports([]);
+  await main.loadAllDocs();
+  await main.loadAllDefinitions();
+
+  await copyUtilsToAppData(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
+  await writeStoredDocs(
+    JSON.stringify(
+      main.getFunctionDocs(),
+      null,
+      2
+    )
+  );
+
+  spinner.succeed("Stored data updated.");
 }

@@ -19,7 +19,7 @@ function File_preventBacktracking(path: string) :: string:
 # @author zNotChill
 # @param {string} fileList - The file list to format
 # @returns {strings} - The formatted file list
-# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
+# @dependencies java.nio.file.DirectoryStream, java.nio.file.Files, java.util.ArrayList
 
 function File_formatFileList(fileList: string) :: strings:
   set {_files::*} to split {_fileList} by ","
@@ -40,7 +40,7 @@ function File_formatFileList(fileList: string) :: strings:
 # @author zNotChill
 # @param {string} path - The path of the directory
 # @returns {strings} - The files in the directory
-# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+# @dependencies java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
 
 function File_getFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
@@ -58,7 +58,7 @@ function File_getFilesInDir(path: string) :: strings:
 # @author zNotChill
 # @param {string} path - The path of the directory
 # @returns {strings} - The files in the directory
-# @dependencies: java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
+# @dependencies java.nio.file.DirectoryStream, java.nio.file.Files, java.io.File
 
 function File_recGetFilesInDir(path: string) :: strings:
   set {_file} to new File({_path})
@@ -98,7 +98,7 @@ function File_getRelativePath(path: string) :: string:
 # @param {string} relative_path - The relative path of the file
 # @returns {string} - The content of the file
 #
-# @dependencies: java.nio.file.Files, java.nio.file.Paths
+# @dependencies java.nio.file.Files, java.nio.file.Paths
 
 function File_getRelativeFileContent(relative_path: string) :: object:
   set {_path} to try Paths.get(File_preventBacktracking(Server_getPath() + "\\%{_relative_path}%"))
