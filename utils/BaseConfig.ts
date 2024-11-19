@@ -14,7 +14,8 @@ export const BaseConfig: Config = {
   ],
   parser: {
     removeComments: true,
-  }
+  },
+  verbose: false,
 }
 
 export type Config = {
@@ -28,5 +29,6 @@ export type Config = {
   ignoredDirectories: string[],
   parser: {
     removeComments: boolean,
-  }
+  },
+  verbose: boolean,
 }

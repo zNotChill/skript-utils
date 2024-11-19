@@ -43,44 +43,78 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
       }
 
       const contentLine = trimmedLine.slice(1).trim(); // remove the "#"
+      const firstWord = contentLine.split(" ")[0].replace(":", "");
 
-      if (contentLine.startsWith("@name")) {
-        skriptDoc.name = contentLine.replace("@name", "").trim();
-      } else if (contentLine.startsWith("@description")) {
-        skriptDoc.description = contentLine.replace("@description", "").trim();
-      } else if (contentLine.startsWith("@param")) {
-        const paramMatch = contentLine.match(/@param\s*{(\w+)}\s+(\w+)\s*(\[[^\]]*\])?\s*-\s*(.*)/);
-        if (paramMatch) {
-          const [, type, unchangedName, defaultValue, description] = paramMatch;
-
-          let defaultVal = defaultValue;
-          if (defaultValue) {
-            defaultVal = defaultValue.slice(1, -1);
-            defaultVal = defaultVal.replace(/"/g, "");
-            defaultVal = defaultVal.replace(/'/g, "");
+      switch (firstWord) {
+        case "@name":
+          skriptDoc.name = contentLine.replace("@name", "").trim();
+          break;
+        case "@description":
+          // If it already has a registered description, treat it as a multi-line description
+          if (skriptDoc.description) {
+            skriptDoc.description += "\n" + contentLine.replace("@description", "").trim();
+          } else {
+            skriptDoc.description = contentLine.replace("@description", "").trim();
           }
+          break;
+        case "@param": {
+          const paramMatch = contentLine.match(/@param\s*{(\w+)}\s+(\w+)\s*(\[[^\]]*\])?\s*-\s*(.*)/);
+          if (paramMatch) {
+            const [, type, unchangedName, defaultValue, description] = paramMatch;
 
-          const param: DocParam = {
-            unchangedName,
-            type,
-            defaultValue: defaultVal,
-            description,
+            let defaultVal = defaultValue;
+            if (defaultValue) {
+              defaultVal = defaultValue.slice(1, -1);
+              defaultVal = defaultVal.replace(/"/g, "");
+              defaultVal = defaultVal.replace(/'/g, "");
+            }
+
+            const param: DocParam = {
+              unchangedName,
+              type,
+              defaultValue: defaultVal,
+              description,
+            };
+            skriptDoc.parameters!.push(param);
+          }
+          break;
+        }
+        case "@returns": {
+          const returnMatch = contentLine.match(/@returns\s+\{(\w+)\}\s+-\s+(.+)/);
+          if (returnMatch) {
+            const [, type, description] = returnMatch;
+            skriptDoc.returns = { type, description };
+          }
+          break;
+        }
+        case "@dependencies": {
+          const dependencies = contentLine.replace("@dependencies:", "").trim().split(",").map(dep => dep.trim());
+          
+          skriptDoc.dependencies = dependencies.map(dep => ({ class: dep }));
+          break;
+        }
+        case "@author": {
+          const author = contentLine.replace("@author", "").trim();
+          skriptDoc.author = author;
+          break;
+        }
+        case "@example": {
+          const example = contentLine.replace("@example", "").trim();
+          const [functionName, returnedExample] = example.split("->").map(e => e.trim());
+
+          skriptDoc.example = {
+            function: functionName,
+            returnedExample,
           };
-          skriptDoc.parameters!.push(param);
+
+          break
         }
-      } else if (contentLine.startsWith("@returns")) {
-        const returnMatch = contentLine.match(/@returns\s+\{(\w+)\}\s+-\s+(.+)/);
-        if (returnMatch) {
-          const [, type, description] = returnMatch;
-          skriptDoc.returns = { type, description };
-        }
-      } else if (contentLine.startsWith("@dependencies")) {
-        const dependencies = contentLine.replace("@dependencies:", "").trim().split(",").map(dep => dep.trim());
-        skriptDoc.dependencies = dependencies.map(dep => ({ class: dep }));
+        default:
+          break;
       }
     }
 
-    if (skriptDoc.name && skriptDoc.description && skriptDoc.returns && skriptDoc.parameters && skriptDoc.dependencies) {
+    if (skriptDoc.name && skriptDoc.description) {
       docs.push(skriptDoc as SkriptDoc);
     }
   }

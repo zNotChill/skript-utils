@@ -29,3 +29,19 @@ export function getUtilsPath() {
 
   return path.join(appData, "skutils", "utils");
 }
+
+export async function writeStoredDocs(docs: string) {
+  const appData = Deno.env.get("APPDATA");
+  if (!appData) {
+    throw new Error("APPDATA environment variable not found.");
+  }
+
+  const docsPath = path.join(appData, "skutils");
+  const docsExists = await Deno.stat(docsPath).catch(() => null);
+
+  if (!docsExists) {
+    await Deno.mkdir(docsPath, { recursive: true });
+  }
+
+  await Deno.writeTextFile(path.join(docsPath, "docs.json"), docs);
+}

@@ -4,7 +4,7 @@ import * as cliffy from "https://deno.land/x/cliffy@v0.25.7/mod.ts";
 import ora from "npm:ora@8.1.1";
 import type { Config as ConfigType } from "./utils/BaseConfig.ts";
 import { BaseConfig } from "./utils/BaseConfig.ts";
-import { copyUtilsToAppData } from "./utils/Scripts.ts";
+import { copyUtilsToAppData, writeStoredDocs } from "./utils/Scripts.ts";
 import { SharedConstants } from "./utils/SharedConstants.ts";
 import main from "./main.ts";
 
@@ -123,6 +123,7 @@ async function watchWorkspace() {
 
 async function repackage() {
   await copyUtilsToAppData(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
+  
   const config = main.getConfig();
 
   main.setDefs([]);
@@ -131,6 +132,14 @@ async function repackage() {
   const defs = await main.loadAllDefinitions();
 
   if (docs && defs) {
+    await writeStoredDocs(
+      JSON.stringify(
+        main.getFunctionDocs(),
+        null,
+        2
+      )
+    )
+
     console.log(`\nLoaded ${docs.length} docs and ${defs.length} definitions`);
     main.parseAllFiles().then((files) => {
       const relativeFiles = files.map((file) => file.replace(workspace + "/", ""));

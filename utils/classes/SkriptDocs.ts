@@ -7,6 +7,8 @@ export type SkriptDoc = {
   parameters: DocParam[],
   returns: DocReturn,
   dependencies: Import[],
+  author: string,
+  example: DocExample,
 }
 
 export type DocParam = {
@@ -19,6 +21,11 @@ export type DocParam = {
 export type DocReturn = {
   type: string,
   description: string,
+}
+
+export type DocExample = {
+  function: string,
+  returnedExample: string,
 }
 
 export type DocDependency = Import

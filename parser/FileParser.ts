@@ -7,7 +7,9 @@ import { Import } from "../utils/classes/Imports.ts";
 import { getRelativeProjectPath, log as logFunc } from "../utils/Logger.ts";
 
 function log(message: string) {
-  logFunc(message, getRelativeProjectPath(import.meta));
+  if (main.getConfig().verbose) {
+    logFunc(message, getRelativeProjectPath(import.meta));
+  }
 }
 
 const alreadyParsed: string[] = [];
