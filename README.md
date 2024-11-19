@@ -11,8 +11,6 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
 # TODO
 
 - make the packager ignore commented lines in the utils scripts
-- add @example
-- add multi-line @descriptions
 
 # Reviews
 ![hi](https://i.gyazo.com/049422ae73d4b84dfc1cf226c2390fbc.png)
