@@ -33,3 +33,15 @@ function Vector_parseFromString(str: string) :: vector:
 
 function Vector_getLookVector(loc: location) :: vector:
   return vector from yaw {_loc}'s yaw and pitch {_loc}'s pitch
+
+# @name Vector_random
+# @description Generates a random vector between -1 and 1
+#
+# @author zNotChill
+# @returns {vector} - The random vector
+
+function Vector_random() :: vector:
+  set {_x} to random number between -1 and 1
+  set {_y} to random number between -1 and 1
+  set {_z} to random number between -1 and 1
+  return vector({_x}, {_y}, {_z})
