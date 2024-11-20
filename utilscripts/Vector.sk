@@ -2,7 +2,7 @@
 # @name Vector_parseFromString
 # @description Parses a string into a vector
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} str - The string to parse
 # @returns {vector} - The vector
 
@@ -27,7 +27,7 @@ function Vector_parseFromString(str: string) :: vector:
 # @name Vector_getLookVector
 # @description Gets the look vector of a location
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {location} loc - The location to get the look vector of
 # @returns {vector} - The look vector
 
@@ -37,7 +37,7 @@ function Vector_getLookVector(loc: location) :: vector:
 # @name Vector_random
 # @description Generates a random vector between -1 and 1
 #
-# @author zNotChill
+# @authors zNotChill
 # @returns {vector} - The random vector
 
 function Vector_random() :: vector:

@@ -93,9 +93,10 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
           skriptDoc.dependencies = dependencies.map(dep => ({ class: dep }));
           break;
         }
-        case "@author": {
-          const author = contentLine.replace("@author", "").trim();
-          skriptDoc.author = author;
+        case "@authors": {
+          const author = contentLine.replace("@authors", "").trim();
+          const authors = author.split("&").map(a => a.trim());
+          skriptDoc.authors = authors;
           break;
         }
         case "@example": {

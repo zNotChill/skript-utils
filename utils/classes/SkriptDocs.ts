@@ -7,7 +7,7 @@ export type SkriptDoc = {
   parameters: DocParam[],
   returns: DocReturn,
   dependencies: Import[],
-  author: string,
+  authors: string[],
   example: DocExample,
 }
 

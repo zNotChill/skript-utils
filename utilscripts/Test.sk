@@ -2,7 +2,7 @@
 # @name Test_announce
 # @description Announces the result of a test
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} test_id - The ID of the test
 # @param {boolean} success - Whether the test succeeded
 
@@ -24,7 +24,7 @@ function Test_announce(test_id: string, success: boolean = true):
 # @name Test_assert
 # @description Compares a value to an expected value
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} test_id - The ID of the test
 # @param {object} value - The value to assert
 # @param {object} expected - The expected value

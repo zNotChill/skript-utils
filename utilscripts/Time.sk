@@ -2,7 +2,7 @@
 # @name Time_ago
 # @description Returns a string representing the time elapsed since the given time
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} timeStr ["0"] - The time to compare
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
@@ -24,7 +24,7 @@ function Time_ago(timeStr: string) :: string:
 # @name Time_agoUnix
 # @description Returns a string representing the time elapsed since the given time
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {integer} time - The time to compare
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
@@ -46,7 +46,7 @@ function Time_agoUnix(time: integer) :: string:
 # @name Time_durationBetween
 # @description Returns a string representing the duration between two times
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} timeStr1 - The first time
 # @param {string} timeStr2 - The second time
 # @dependencies java.time.Instant, java.time.Duration
@@ -68,7 +68,7 @@ function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
 # @name Time_durationBetweenUnix
 # @description Returns a string representing the duration between two times
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {integer} time1 - The first time
 # @param {integer} time2 - The second time
 # @dependencies java.time.Instant, java.time.Duration
@@ -90,7 +90,7 @@ function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
 # @name Time_getUnixFromStr
 # @description Returns the Unix time from a string
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {string} timeStr - The time string
 # @returns {integer} - The Unix time
 # @dependencies java.time.Instant
@@ -101,7 +101,7 @@ function Time_getUnixFromStr(timeStr: string) :: integer:
 # @name Time_getStrFromUnix
 # @description Returns the string from a Unix time
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {integer} time - The Unix time
 # @returns {string} - The time string
 # @dependencies java.time.Instant
