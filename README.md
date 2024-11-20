@@ -22,7 +22,7 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
 # @name List_removeEmptyEntries
 # @description Removes empty entries from a list
 #
-# @author zNotChill
+# @authors zNotChill
 # @param {strings} list - The list to remove empty entries from
 # @returns {strings} - The list without empty entries
 # @dependencies java.util.ArrayList
@@ -47,7 +47,9 @@ $    deno install -n skutils --allow-read --allow-write --allow-env --allow-sys 
   ],
   "name": "List_removeEmptyEntries",
   "description": "Removes empty entries from a list",
-  "author": "zNotChill",
+  "authors": [
+    "zNotChill"
+  ],
   "returns": {
     "type": "strings",
     "description": "The list without empty entries"
