@@ -12,7 +12,8 @@ Should either start with "##" or nothing at all. A single "#" will not function 
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Color_hexToRGB("##ff00ff")
+  # -> rgb(255, 0, 255)
 ```
 ## Direction_reverse
 Reverses a direction
@@ -56,7 +57,8 @@ Prevents backtracking in a file path
 No dependencies.
 ### Example
 ```vb
-No example provided.
+File_preventBacktracking("/.././test")
+  # -> "./test"
 ```
 ## File_formatFileList
 Formats a file list
@@ -73,7 +75,8 @@ Formats a file list
 - java.util.ArrayList
 ### Example
 ```vb
-No example provided.
+File_formatFileList("[plugins\Skript.jar, plugins\skript-reflect.jar]")
+  # -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
 ```
 ## File_getFilesInDir
 Gets the files in a directory
@@ -90,7 +93,8 @@ Gets the files in a directory
 - java.io.File
 ### Example
 ```vb
-No example provided.
+File_getFilesInDir("plugins")
+  # -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
 ```
 ## File_recGetFilesInDir
 Recursively gets the files in a directory
@@ -107,7 +111,8 @@ Recursively gets the files in a directory
 - java.io.File
 ### Example
 ```vb
-No example provided.
+File_recGetFilesInDir("plugins")
+  # -> ["plugins\Example.jar", "plugins\Example2.jar", "plugins\Example\config.yml"]
 ```
 ## File_getRelativePath
 Gets the relative path of a file
@@ -121,7 +126,8 @@ Gets the relative path of a file
 No dependencies.
 ### Example
 ```vb
-No example provided.
+File_getRelativePath("plugins")
+  # -> "plugins"
 ```
 ## File_getRelativeFileContent
 Gets the content of a file relative to the server path
@@ -137,7 +143,8 @@ Gets the content of a file relative to the server path
 - java.nio.file.Paths
 ### Example
 ```vb
-No example provided.
+File_getRelativeFileContent("eula.txt")
+  # -> "eula=true"
 ```
 ## File_fixPath
 Fixes slashes in a file path
@@ -151,7 +158,8 @@ Fixes slashes in a file path
 No dependencies.
 ### Example
 ```vb
-No example provided.
+File_fixPath("/plugins/")
+  # -> "\\plugins\\"
 ```
 ## File_fixBackslashes
 Fixes backslashes in a file path
@@ -165,7 +173,8 @@ Fixes backslashes in a file path
 No dependencies.
 ### Example
 ```vb
-No example provided.
+File_fixBackslashes("\\plugins\\")
+  # -> "/plugins/"
 ```
 ## List_removeEmptyEntries
 Removes empty entries from a list
@@ -210,7 +219,8 @@ Caps a list
 No dependencies.
 ### Example
 ```vb
-No example provided.
+List_cap("a", "b", "c", 2)
+  # -> "a", "b"
 ```
 ## List_isEmpty
 Checks if a list is empty
@@ -224,10 +234,12 @@ Checks if a list is empty
 No dependencies.
 ### Example
 ```vb
-No example provided.
+List_isEmpty("a", "b", "c")
+  # -> false
 ```
 ## Location_getExtremes
 Gets the extremes of two locations
+Lowest corner is always the first in the returned list
 ### Authors
 - zNotChill
 ### Parameters
@@ -239,7 +251,8 @@ Gets the extremes of two locations
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Location_getExtremes(location(10, 10, 10), location(5, 5, 5))
+  # -> location(5, 5, 5), location(10, 10, 10)
 ```
 ## Location_checkAABB
 Checks if a location is within an AABB
@@ -255,7 +268,8 @@ Checks if a location is within an AABB
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Location_checkAABB(location(5, 5, 5), location(10, 10, 10), location(0, 0, 0))
+  # -> true
 ```
 ## Location_parseChunk
 Parses a chunk from a string Vector2 location
@@ -285,7 +299,8 @@ Gets the distance between two locations as a vector
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Location_vectorDistance(location(10, 10, 10), location(20, 20, 20))
+  # -> vector(10, 10, 10)
 ```
 ## Number_parse
 Parses a number into a string formatted by commas (e.g. 1,000,000)
@@ -299,7 +314,8 @@ Parses a number into a string formatted by commas (e.g. 1,000,000)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Number_parse(1000000)
+  # -> "1,000,000"
 ```
 ## Number_format
 Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
@@ -313,7 +329,8 @@ Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Number_format(1000)
+  # -> "1k"
 ```
 ## Server_getPath
 Returns the path of the server
@@ -327,7 +344,8 @@ Returns the path of the server
 - java.io.File
 ### Example
 ```vb
-No example provided.
+Server_getPath()
+  # -> "D:\Server\"
 ```
 ## Test_announce
 Announces the result of a test
@@ -336,6 +354,7 @@ Announces the result of a test
 ### Parameters
 - **test_id** (string) - The ID of the test
 - **success** (boolean) - Whether the test succeeded
+- **is_not_equal_test** (boolean) - Whether the test is a "not equal" assertion
 ### Returns
 - No return value.
 ### Dependencies (skript-reflect)
@@ -353,12 +372,13 @@ Compares a value to an expected value
 - **value** (object) - The value to assert
 - **expected** (object) - The expected value
 ### Returns
-- No return value.
+- **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Test_assert("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
+  # -> true
 ```
 ## Test_assertNotEqual
 Compares a value to an expected value, but asserts that they are not equal
@@ -369,12 +389,13 @@ Compares a value to an expected value, but asserts that they are not equal
 - **value** (object) - The value to assert
 - **expected** (object) - The expected value
 ### Returns
-- No return value.
+- **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Test_assertNotEqual("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
+  # -> false
 ```
 ## Test_assertArray
 Compares an array to an expected array
@@ -385,12 +406,13 @@ Compares an array to an expected array
 - **value** (objects) - The array to assert
 - **expected** (objects) - The expected array
 ### Returns
-- No return value.
+- **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Test_assertArray("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
+  # -> true
 ```
 ## Test_assertArrayNotEqual
 Compares an array to an expected array, but asserts that they are not equal
@@ -401,12 +423,13 @@ Compares an array to an expected array, but asserts that they are not equal
 - **value** (objects) - The array to assert
 - **expected** (objects) - The expected array
 ### Returns
-- No return value.
+- **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Test_assertArrayNotEqual("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
+  # -> false
 ```
 ## Test_runInternalTests
 Runs an internal test for each utility
@@ -444,7 +467,8 @@ Formats a string with multiple values
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_format("Hello, %%s!", "world")
+  # -> "Hello, world!"
 ```
 ## Text_coloredBoolean
 Returns a colored string based on a boolean value
@@ -457,7 +481,8 @@ Returns a colored string based on a boolean value
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_coloredBoolean(true)
+  # -> "&aTrue"
 ```
 ## Text_toSmallFont
 Converts text to small font
@@ -471,7 +496,8 @@ Converts text to small font
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_toSmallFont("Hello, world!")
+  # -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 ```
 ## Text_removeColorCodes
 Removes color codes from a string
@@ -485,7 +511,8 @@ Removes color codes from a string
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_removeColorCodes("&aHello, &cworld!")
+  # -> "Hello, world!"
 ```
 ## Text_formatText
 Formats text
@@ -499,7 +526,8 @@ Formats text
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_formatText("st:Hello, world!")
+  # -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 ```
 ## Text_toNumber
 Converts a string to a number
@@ -513,10 +541,12 @@ Converts a string to a number
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Text_toNumber("5")
+  # -> 5
 ```
 ## Time_ago
 Returns a string representing the time elapsed since the given time
+Parameter "from" is optional but can be used to compare the time to a different time than the current system time
 ### Authors
 - zNotChill
 ### Parameters
@@ -530,10 +560,12 @@ Returns a string representing the time elapsed since the given time
 - java.time.Duration
 ### Example
 ```vb
-No example provided.
+Time_ago("2021-01-01T00:00:00Z")
+  # -> "1421 days ago"
 ```
 ## Time_agoUnix
 Returns a string representing the time elapsed since the given time
+Parameter "from" is optional but can be used to compare the time to a different time than the current system time
 ### Authors
 - zNotChill
 ### Parameters
@@ -547,7 +579,8 @@ Returns a string representing the time elapsed since the given time
 - java.time.Duration
 ### Example
 ```vb
-No example provided.
+Time_agoUnix(1612137600)
+  # -> "1390 days ago"
 ```
 ## Time_durationBetween
 Returns a string representing the duration between two times
@@ -557,14 +590,15 @@ Returns a string representing the duration between two times
 - **timeStr1** (string) - The first time
 - **timeStr2** (string) - The second time
 ### Returns
-- No return value.
+- **string** - The duration between the two times
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
 ```vb
-No example provided.
+Time_durationBetween("2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z")
+  # -> "366 days"
 ```
 ## Time_durationBetweenUnix
 Returns a string representing the duration between two times
@@ -574,14 +608,15 @@ Returns a string representing the duration between two times
 - **time1** (integer) - The first time
 - **time2** (integer) - The second time
 ### Returns
-- No return value.
+- **string** - The duration between the two times
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
 ```vb
-No example provided.
+Time_durationBetweenUnix(1612137600, 1612139000)
+  # -> "23 minutes"
 ```
 ## Time_getUnixFromStr
 Returns the Unix time from a string
@@ -596,7 +631,8 @@ Returns the Unix time from a string
 - java.time.Instant
 ### Example
 ```vb
-No example provided.
+Time_getUnixFromStr("2024-01-01T00:00:00Z")
+  # -> 1704067200
 ```
 ## Time_getStrFromUnix
 Returns the string from a Unix time
@@ -611,7 +647,23 @@ Returns the string from a Unix time
 - java.time.Instant
 ### Example
 ```vb
-No example provided.
+Time_getStrFromUnix(1704067200)
+  # -> "2024-01-01T00:00:00Z"
+```
+## Time_getDurationString
+Returns a string representing the duration
+### Authors
+- zNotChill
+### Parameters
+- **duration** (integer) - The duration
+### Returns
+- **string** - The duration string
+### Dependencies (skript-reflect)
+No dependencies.
+### Example
+```vb
+Time_getDurationString(3661)
+  # -> "1h 1m"
 ```
 ## Vector_parseFromString
 Parses a string into a vector
@@ -625,7 +677,8 @@ Parses a string into a vector
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Vector_parseFromString("x: 1, y: 2, z: 3")
+  # -> vector(1, 2, 3)
 ```
 ## Vector_getLookVector
 Gets the look vector of a location
@@ -639,7 +692,8 @@ Gets the look vector of a location
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Vector_getLookVector(location(0, 0, 0, world "", 10, 10))
+  # -> vector(-0.17, -0.17, 0.97)
 ```
 ## Vector_random
 Generates a random vector between -1 and 1
@@ -652,5 +706,6 @@ Generates a random vector between -1 and 1
 No dependencies.
 ### Example
 ```vb
-No example provided.
+Vector_random()
+  # -> vector(-0.86, 0.93, -0.36)
 ```
