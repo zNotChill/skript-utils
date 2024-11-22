@@ -35,6 +35,23 @@ const updateData = new cliffy.Command()
   .action(() => {
     updateStoredData();
   });
+const updateDocsMarkdown = new cliffy.Command()
+  .description("Update the markdown docs")
+  .action(async () => {
+    ora("Loading documentation...").info();
+    
+    main.setDefs([]);
+    main.setImports([]);
+    await main.loadAllDocs();
+    await main.loadAllDefinitions();
+
+    Deno.writeFileSync(
+      "./DOCS.md",
+      new TextEncoder().encode(main.getMarkdownDocs().join("\n"))
+    );
+
+    ora("DOCS.md updated.").succeed();
+  });
 
 const { options } = await new cliffy.Command()
   .name("skript-utils")
@@ -43,6 +60,7 @@ const { options } = await new cliffy.Command()
   .option("--init", "Initialize your workspace")
     .command("watch", watch)
     .command("update-data", updateData)
+    .command("update-docs-md", updateDocsMarkdown)
     .parse(Deno.args);
 
 if (options.init) {

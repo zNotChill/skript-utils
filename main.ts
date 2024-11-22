@@ -101,6 +101,69 @@ class Main {
   public async loadAllDocs() {
     return await loadAllDocs();
   }
+
+  public getMarkdownDocs(): string[] {
+    const markdown: string[] = [];
+
+    markdown.push("# Skript Docs");
+    // markdown.push(...
+    //   this.functionDocs.map((doc) => `
+    //     ## ${doc.name}
+    //     ${doc.description}
+
+    //     ### Parameters
+    //     ${doc.parameters.map((param) => `
+    //       - **${param.unchangedName}** (${param.type})${param.defaultValue ? `: ${param.defaultValue}` : ""} - ${param.description}
+    //     `).join("\n")}
+
+    //     ### Returns
+    //     - ${doc.returns ? `**${doc.returns.type}** - ${doc.returns.description}` : "No return value."}
+
+    //     ${doc.dependencies.length > 0 ? `
+    //       ### Dependencies (skript-reflect)
+    //       ${doc.dependencies.map((dep) => `
+    //         - ${dep.class}
+    //       `).join("\n")}
+    //     ` : ""}
+
+    //     ### Example
+        
+    //     \`\`\`vb
+    //     ${doc.example ? `${doc.example.function}
+    //       # -> ${doc.example.returnedExample}`.replace(/^ {8}/gm, "") : "No example provided."}
+    //     \`\`\`
+    //     `.replace(/^ {8}/gm, "")
+    //   )
+    // )
+
+    this.functionDocs.forEach((doc) => {
+      markdown.push(`## ${doc.name}`);
+      markdown.push(doc.description);
+
+      markdown.push("### Parameters");
+      doc.parameters.forEach((param) => {
+        markdown.push(`- **${param.unchangedName}** (${param.type})${param.defaultValue ? `: ${param.defaultValue}` : ""} - ${param.description}`);
+      });
+
+      markdown.push("### Returns");
+      markdown.push(`- ${doc.returns ? `**${doc.returns.type}** - ${doc.returns.description}` : "No return value."}`);
+
+      if (doc.dependencies.length > 0) {
+        markdown.push("### Dependencies (skript-reflect)");
+        doc.dependencies.forEach((dep) => {
+          markdown.push(`- ${dep.class}`);
+        });
+      }
+
+      markdown.push("### Example");
+      markdown.push(`\`\`\`vb
+${doc.example ? `${doc.example.function}
+  # -> ${doc.example.returnedExample}`.replace(/^ {8}/gm, "") : "No example provided."}
+\`\`\``);
+    });
+
+    return markdown;
+  }
 }
 
 const main = new Main();
