@@ -1,0 +1,31 @@
+
+# @name Direction_reverse
+# @description Reverses a direction
+# 
+# @authors miberss
+# @param {direction} dir - The direction to reverse
+# @returns {direction} - The reversed direction
+# @example Direction_reverse(north) -> south
+
+function Direction_reverse(dir: direction) :: direction:
+  return Direction_getFromVector((vector from {_dir}) * -1)
+
+# @name Direction_getFromVector
+# @description Gets a direction from a cardinal vector
+#
+# @authors miberss
+# @param {vector} vec - The vector, that will be getting turned into a direction
+# @returns {direction} - The direction
+# @example Direction_getFromVector(vector(0,0,-1)) -> north
+
+function Direction_getFromVector(vec: vector) :: direction:
+  set {_vec} to normalized {_vec}
+  set {_x} to round(x of {_vec})
+  set {_z} to round(z of {_vec})
+  if abs({_x}) > abs({_z}):
+    if {_x} > 0:
+      return east
+    return west
+  if {_z} < 0:
+    return north
+  return south
