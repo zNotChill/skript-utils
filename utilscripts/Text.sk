@@ -15,6 +15,7 @@
 # @param {string} val9 - The ninth value
 # @param {string} val10 - The tenth value
 # @returns {string} - The formatted string
+# @example Text_format("Hello, %%s!", "world") -> "Hello, world!"
 
 function Text_format(str: string, val1: string, val2: string = "", val3: string = "", val4: string = "", val5: string = "", val6: string = "", val7: string = "", val8: string = "", val9: string = "", val10: string = "") :: string:
   return {_str}.formatted({_val1}, {_val2}, {_val3}, {_val4}, {_val5}, {_val6}, {_val7}, {_val8}, {_val9}, {_val10})
@@ -24,6 +25,7 @@ function Text_format(str: string, val1: string, val2: string = "", val3: string 
 #
 # @param {boolean} value - The boolean value
 # @returns {string} - The colored string
+# @example Text_coloredBoolean(true) -> "&aTrue"
 
 function Text_coloredBoolean(value: boolean) :: string:
   if {_value} = true:
@@ -36,6 +38,7 @@ function Text_coloredBoolean(value: boolean) :: string:
 # @authors zNotChill
 # @param {string} text - The text to convert
 # @returns {string} - The converted text
+# @example Text_toSmallFont("Hello, world!") -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 
 function Text_toSmallFont(text: string) :: string:
   clear {_chars::*}
@@ -114,6 +117,7 @@ function Text_toSmallFont(text: string) :: string:
 # @authors zNotChill
 # @param {string} text - The text to remove color codes from
 # @returns {string} - The text without color codes
+# @example Text_removeColorCodes("&aHello, &cworld!") -> "Hello, world!"
 
 function Text_removeColorCodes(text: string) :: string:
   # remove any text with & and a letter
@@ -137,6 +141,7 @@ function Text_removeColorCodes(text: string) :: string:
 # @authors zNotChill
 # @param {string} text - The text to format
 # @returns {string} - The formatted text
+# @example Text_formatText("st:Hello, world!") -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 
 function Text_formatText(text: string) :: string:
   if {_text} starts with "st:":
@@ -151,6 +156,7 @@ function Text_formatText(text: string) :: string:
 # @authors zNotChill
 # @param {string} text - The text to convert
 # @returns {number} - The converted number
+# @example Text_toNumber("5") -> 5
 
 function Text_toNumber(text: string) :: number:
   return {_text} parsed as number

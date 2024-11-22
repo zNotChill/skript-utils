@@ -6,6 +6,7 @@
 # @authors Sorbon
 # @param {string} hex - The hex color to convert
 # @returns {numbers} - The RGB values
+# @example Color_hexToRGB("##ff00ff") -> rgb(255, 0, 255)
 
 function Color_hexToRGB(hex: string) :: object:
   replace all "##" with "" in {_hex}

@@ -1,12 +1,14 @@
 
 # @name Time_ago
 # @description Returns a string representing the time elapsed since the given time
+# @description Parameter "from" is optional but can be used to compare the time to a different time than the current system time
 #
 # @authors zNotChill
 # @param {string} timeStr ["0"] - The time to compare
 # @param {string} from [""] - The time to compare from
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
+# @example Time_ago("2021-01-01T00:00:00Z") -> "1421 days ago"
 
 function Time_ago(timeStr: string, from: string = "") :: string:
   set {_parsedTime} to Instant.parse({_timeStr})
@@ -25,12 +27,14 @@ function Time_ago(timeStr: string, from: string = "") :: string:
 
 # @name Time_agoUnix
 # @description Returns a string representing the time elapsed since the given time
+# @description Parameter "from" is optional but can be used to compare the time to a different time than the current system time
 #
 # @authors zNotChill
 # @param {integer} time - The time to compare
 # @param {string} from [""] - The time to compare from
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
+# @example Time_agoUnix(1612137600) -> "1390 days ago"
 
 function Time_agoUnix(time: integer, from: string = "") :: string:
   set {_parsedTime} to Instant.ofEpochSecond({_time})
@@ -54,6 +58,8 @@ function Time_agoUnix(time: integer, from: string = "") :: string:
 # @param {string} timeStr1 - The first time
 # @param {string} timeStr2 - The second time
 # @dependencies java.time.Instant, java.time.Duration
+# @returns {string} - The duration between the two times
+# @example Time_durationBetween("2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z") -> "366 days"
 
 function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
   set {_parsedTime1} to Instant.parse({_timeStr1})
@@ -78,6 +84,8 @@ function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
 # @param {integer} time1 - The first time
 # @param {integer} time2 - The second time
 # @dependencies java.time.Instant, java.time.Duration
+# @returns {string} - The duration between the two times
+# @example Time_durationBetweenUnix(1612137600, 1612139000) -> "23 minutes"
 
 function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
   set {_parsedTime1} to Instant.ofEpochSecond({_time1})
@@ -102,6 +110,7 @@ function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
 # @param {string} timeStr - The time string
 # @returns {integer} - The Unix time
 # @dependencies java.time.Instant
+# @example Time_getUnixFromStr("2024-01-01T00:00:00Z") -> 1704067200
 
 function Time_getUnixFromStr(timeStr: string) :: integer:
   return Instant.parse({_timeStr}).getEpochSecond()
@@ -113,6 +122,18 @@ function Time_getUnixFromStr(timeStr: string) :: integer:
 # @param {integer} time - The Unix time
 # @returns {string} - The time string
 # @dependencies java.time.Instant
+# @example Time_getStrFromUnix(1704067200) -> "2024-01-01T00:00:00Z"
+
+function Time_getStrFromUnix(time: integer) :: string:
+  return Instant.ofEpochSecond({_time}).toString()
+
+# @name Time_getDurationString
+# @description Returns a string representing the duration
+#
+# @authors zNotChill
+# @param {integer} duration - The duration
+# @returns {string} - The duration string
+# @example Time_getDurationString(3661) -> "1h 1m"
 
 function Time_getDurationString(duration: number) :: string:
   set {_result} to ""

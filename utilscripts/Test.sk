@@ -5,6 +5,8 @@
 # @authors zNotChill
 # @param {string} test_id - The ID of the test
 # @param {boolean} success - Whether the test succeeded
+# @param {boolean} is_not_equal_test - Whether the test is a "not equal" assertion
+
 
 function Test_announce(test_id: string, success: boolean = true, is_not_equal_test: boolean = false):
   if {_success} = true:
@@ -40,6 +42,8 @@ function Test_announce(test_id: string, success: boolean = true, is_not_equal_te
 # @param {string} test_id - The ID of the test
 # @param {object} value - The value to assert
 # @param {object} expected - The expected value
+# @returns {boolean} - Whether the assertion succeeded
+# @example Test_assert("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0)) -> true
 
 function Test_assert(test_id: string, value: object, expected: object, announce: boolean = true) :: boolean:
   set {-tests::%{_test_id}%::value} to "%{_value}%"
@@ -61,6 +65,8 @@ function Test_assert(test_id: string, value: object, expected: object, announce:
 # @param {string} test_id - The ID of the test
 # @param {object} value - The value to assert
 # @param {object} expected - The expected value
+# @returns {boolean} - Whether the assertion succeeded
+# @example Test_assertNotEqual("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0)) -> false
 
 function Test_assertNotEqual(test_id: string, value: object, expected: object, announce: boolean = true) :: boolean:
   set {_assert} to Test_assert({_test_id}, {_value}, {_expected}, false)
@@ -79,6 +85,8 @@ function Test_assertNotEqual(test_id: string, value: object, expected: object, a
 # @param {string} test_id - The ID of the test
 # @param {objects} value - The array to assert
 # @param {objects} expected - The expected array
+# @returns {boolean} - Whether the assertion succeeded
+# @example Test_assertArray("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b")) -> true
 
 function Test_assertArray(test_id: string, value: objects, expected: objects, announce: boolean = true) :: boolean:
   set {_assert} to true
@@ -105,6 +113,8 @@ function Test_assertArray(test_id: string, value: objects, expected: objects, an
 # @param {string} test_id - The ID of the test
 # @param {objects} value - The array to assert
 # @param {objects} expected - The expected array
+# @returns {boolean} - Whether the assertion succeeded
+# @example Test_assertArrayNotEqual("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b")) -> false
 
 function Test_assertArrayNotEqual(test_id: string, value: objects, expected: objects, announce: boolean = true) :: boolean:
   set {_assert} to Test_assertArray({_test_id}, {_value::*}, {_expected::*}, false)

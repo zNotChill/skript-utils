@@ -5,6 +5,7 @@
 # @authors Unknown
 # @param {number} val - The number to parse
 # @returns {text} - The parsed number
+# @example Number_parse(1000000) -> "1,000,000"
 
 function Number_parse(val: number) :: text:
   set {_val} to "%{_val}%"
@@ -21,6 +22,7 @@ function Number_parse(val: number) :: text:
 # @authors Unknown
 # @param {number} n - The number to format
 # @returns {text} - The formatted number
+# @example Number_format(1000) -> "1k"
 
 function Number_format(n: number) :: text:
   set {_data} to "TRD,42|DUO,39|UND,36|DC,33|NO,30|OC,27|SP,24|SX,21|QT,18|Q,15|T,12|B,9|M,6|k,3"

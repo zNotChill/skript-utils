@@ -1,11 +1,13 @@
 
 # @name Location_getExtremes
 # @description Gets the extremes of two locations
+# @description Lowest corner is always the first in the returned list
 #
 # @authors zNotChill
 # @param {location} pos1 - The first position
 # @param {location} pos2 - The second position
 # @returns {locations} - The lowest and highest corners
+# @example Location_getExtremes(location(10, 10, 10), location(5, 5, 5)) -> location(5, 5, 5), location(10, 10, 10)
 
 function Location_getExtremes(pos1: location, pos2: location) :: locations:
   set {_lowestCorner} to {_pos1}
@@ -23,6 +25,7 @@ function Location_getExtremes(pos1: location, pos2: location) :: locations:
 # @param {location} corner1 - The first corner of the AABB
 # @param {location} corner2 - The second corner of the AABB
 # @returns {boolean} - Whether the location is within the AABB
+# @example Location_checkAABB(location(5, 5, 5), location(10, 10, 10), location(0, 0, 0)) -> true
 
 function Location_checkAABB(loc: location, corner1: location, corner2: location) :: boolean:
   set {_extremes::*} to Location_getExtremes({_corner1}, {_corner2})
@@ -62,6 +65,7 @@ function Location_parseChunk(chunk: string) :: chunk:
 # @param {location} loc1 - The first location
 # @param {location} loc2 - The second location
 # @returns {vector} - The vector distance between the two locations
+# @example Location_vectorDistance(location(10, 10, 10), location(20, 20, 20)) -> vector(10, 10, 10)
 
 function Location_vectorDistance(loc1: location, loc2: location) :: vector:
   set {_x} to x coord of {_loc2} - x coord of {_loc1}

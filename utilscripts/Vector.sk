@@ -5,6 +5,7 @@
 # @authors zNotChill
 # @param {string} str - The string to parse
 # @returns {vector} - The vector
+# @example Vector_parseFromString("x: 1, y: 2, z: 3") -> vector(1, 2, 3)
 
 function Vector_parseFromString(str: string) :: vector:
   # format: x: x, y: y, z: z
@@ -30,6 +31,7 @@ function Vector_parseFromString(str: string) :: vector:
 # @authors zNotChill
 # @param {location} loc - The location to get the look vector of
 # @returns {vector} - The look vector
+# @example Vector_getLookVector(location(0, 0, 0, world "", 10, 10)) -> vector(-0.17, -0.17, 0.97)
 
 function Vector_getLookVector(loc: location) :: vector:
   return vector from yaw {_loc}'s yaw and pitch {_loc}'s pitch
@@ -39,6 +41,7 @@ function Vector_getLookVector(loc: location) :: vector:
 #
 # @authors zNotChill
 # @returns {vector} - The random vector
+# @example Vector_random() -> vector(-0.86, 0.93, -0.36)
 
 function Vector_random() :: vector:
   set {_x} to random number between -1 and 1

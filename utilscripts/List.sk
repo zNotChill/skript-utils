@@ -43,6 +43,7 @@ function List_getDuplicates(list: objects) :: objects:
 # @param {objects} list - The list to cap
 # @param {number} cap - The cap of the list
 # @returns {objects} - The capped list
+# @example List_cap("a", "b", "c", 2) -> "a", "b"
 
 function List_cap(list: objects, cap: number) :: objects:
   clear {_newList::*}
@@ -58,6 +59,7 @@ function List_cap(list: objects, cap: number) :: objects:
 # @authors zNotChill
 # @param {objects} list - The list to check
 # @returns {boolean} - Whether the list is empty
+# @example List_isEmpty("a", "b", "c") -> false
 
 function List_isEmpty(list: objects) :: boolean:
   if size of {_list::*} = 0:
