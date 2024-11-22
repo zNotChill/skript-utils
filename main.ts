@@ -155,6 +155,7 @@ class Main {
 
       if (doc.dependencies.length > 0) {
         markdown.push("### Dependencies (skript-reflect)");
+        markdown.push("*Dependencies can be ignored if you are using the auto packager since this is done automatically.*");
         doc.dependencies.forEach((dep) => {
           markdown.push(`- ${dep.class}`);
         });

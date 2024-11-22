@@ -59,6 +59,7 @@ Formats a file list
 ### Returns
 - **strings** - The formatted file list
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.util.ArrayList
@@ -75,6 +76,7 @@ Gets the files in a directory
 ### Returns
 - **strings** - The files in the directory
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.io.File
@@ -91,6 +93,7 @@ Recursively gets the files in a directory
 ### Returns
 - **strings** - The files in the directory
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.io.File
@@ -119,6 +122,7 @@ Gets the content of a file relative to the server path
 ### Returns
 - **string** - The content of the file
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.nio.file.Files
 - java.nio.file.Paths
 ### Example
@@ -158,6 +162,7 @@ Removes empty entries from a list
 ### Returns
 - **strings** - The list without empty entries
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.util.ArrayList
 ### Example
 ```vb
@@ -286,6 +291,7 @@ Returns the path of the server
 ### Returns
 - **string** - The path of the server
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.io.File
 ### Example
 ```vb
@@ -368,6 +374,7 @@ Runs an internal test for each utility
 ### Returns
 - No return value.
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.io.File
 ### Example
 ```vb
@@ -464,6 +471,7 @@ Returns a string representing the time elapsed since the given time
 ### Returns
 - **string** - The time elapsed since the given time
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
@@ -480,6 +488,7 @@ Returns a string representing the time elapsed since the given time
 ### Returns
 - **string** - The time elapsed since the given time
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
@@ -496,6 +505,7 @@ Returns a string representing the duration between two times
 ### Returns
 - No return value.
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
@@ -512,6 +522,7 @@ Returns a string representing the duration between two times
 ### Returns
 - No return value.
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
 ### Example
@@ -527,6 +538,7 @@ Returns the Unix time from a string
 ### Returns
 - **integer** - The Unix time
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 ### Example
 ```vb
@@ -541,6 +553,7 @@ Returns the string from a Unix time
 ### Returns
 - **string** - The time string
 ### Dependencies (skript-reflect)
+*Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 ### Example
 ```vb
