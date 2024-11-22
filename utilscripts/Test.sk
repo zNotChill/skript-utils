@@ -6,7 +6,7 @@
 # @param {string} test_id - The ID of the test
 # @param {boolean} success - Whether the test succeeded
 
-function Test_announce(test_id: string, success: boolean = true):
+function Test_announce(test_id: string, success: boolean = true, is_not_equal_test: boolean = false):
   if {_success} = true:
     set {_prefix} to "✔"
     set {_color} to "&a"
@@ -18,7 +18,19 @@ function Test_announce(test_id: string, success: boolean = true):
     set {_text} to "failed"
     set {_matched} to "did not match"
 
-  broadcast "%{_color}%%{_prefix}% &7Test %{_color}%%{_test_id}% &7%{_text}%. Value %{_color}%%{-tests::%{_test_id}%::value}% &7%{_matched}% %{_color}%%{-tests::%{_test_id}%::expected}%&7."
+  if {_is_not_equal_test} = true:
+    if {_success} = true:
+      set {_color} to "<##fcba03>"
+      set {_prefix} to "-"
+      set {_text} to "succeeded"
+      set {_matched} to "did not match"
+    else:
+      set {_color} to "&c"
+      set {_prefix} to "+"
+      set {_text} to "failed"
+      set {_matched} to "matched"
+
+  broadcast formatted "%{_color}%%{_prefix}% &7Test %{_color}%%{_test_id}% &7%{_text}%. Value %{_color}%%{-tests::%{_test_id}%::value}% &7%{_matched}% expected %{_color}%%{-tests::%{_test_id}%::expected}%&7."
   delete {-tests::%{_test_id}%::*}
 
 # @name Test_assert
@@ -29,13 +41,184 @@ function Test_announce(test_id: string, success: boolean = true):
 # @param {object} value - The value to assert
 # @param {object} expected - The expected value
 
-function Test_assert(test_id: string, value: object, expected: object) :: boolean:
+function Test_assert(test_id: string, value: object, expected: object, announce: boolean = true) :: boolean:
   set {-tests::%{_test_id}%::value} to "%{_value}%"
   set {-tests::%{_test_id}%::expected} to "%{_expected}%"
 
-  if {_value} = {_expected}:
-    Test_announce({_test_id}, true)
+  # I would really like this to be non-string comparison, but I can't find a way to do that
+  # without a lot of type checking and casting
+  if "%{_value}%" = "%{_expected}%":
+    Test_announce({_test_id}, true) if {_announce} = true
     return true
   else:
-    Test_announce({_test_id}, false)
+    Test_announce({_test_id}, false) if {_announce} = true
     return false
+
+# @name Test_assertNotEqual
+# @description Compares a value to an expected value, but asserts that they are not equal
+#
+# @authors zNotChill
+# @param {string} test_id - The ID of the test
+# @param {object} value - The value to assert
+# @param {object} expected - The expected value
+
+function Test_assertNotEqual(test_id: string, value: object, expected: object, announce: boolean = true) :: boolean:
+  set {_assert} to Test_assert({_test_id}, {_value}, {_expected}, false)
+
+  if {_assert} = false:
+    Test_announce({_test_id}, true, true) if {_announce} = true
+    return true
+  else:
+    Test_announce({_test_id}, false, true) if {_announce} = true
+    return false
+
+# @name Test_assertArray
+# @description Compares an array to an expected array
+#
+# @authors zNotChill
+# @param {string} test_id - The ID of the test
+# @param {objects} value - The array to assert
+# @param {objects} expected - The expected array
+
+function Test_assertArray(test_id: string, value: objects, expected: objects, announce: boolean = true) :: boolean:
+  set {_assert} to true
+  loop {_value::*}:
+    add 1 to {_index}
+    if loop-value != {_expected::%{_index}%}:
+      set {_assert} to false
+      stop loop
+
+  set {-tests::%{_test_id}%::value} to "%{_value::*}%"
+  set {-tests::%{_test_id}%::expected} to "%{_expected::*}%"
+
+  if {_assert} = true:
+    Test_announce({_test_id}, true) if {_announce} = true
+    return true
+  else:
+    Test_announce({_test_id}, false) if {_announce} = true
+    return false
+
+# @name Test_assertArrayNotEqual
+# @description Compares an array to an expected array, but asserts that they are not equal
+#
+# @authors zNotChill
+# @param {string} test_id - The ID of the test
+# @param {objects} value - The array to assert
+# @param {objects} expected - The expected array
+
+function Test_assertArrayNotEqual(test_id: string, value: objects, expected: objects, announce: boolean = true) :: boolean:
+  set {_assert} to Test_assertArray({_test_id}, {_value::*}, {_expected::*}, false)
+
+  if {_assert} = false:
+    Test_announce({_test_id}, true, true) if {_announce} = true
+    return true
+  else:
+    Test_announce({_test_id}, false, true) if {_announce} = true
+    return false
+
+# @name Test_runInternalTests
+# @description Runs an internal test for each utility
+#
+# @authors zNotChill
+# @flags internal, dev, debug
+# @dependencies java.io.File
+
+function Test_runInternalTests():
+  set {_time} to unix timestamp of now * 1000
+  
+  #
+  # Color
+  #
+
+  Test_assert("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
+
+  #
+  # Direction
+  #
+
+  Test_assert("Direction_reverse", Direction_reverse(north), south)
+  Test_assert("Direction_getFromVector", Direction_getFromVector(vector(0, 0, -1)), north)
+
+  #
+  # File
+  #
+
+  Test_assert("File_preventBacktracking", File_preventBacktracking("/.././test"), "./test")
+  Test_assertArray("File_formatFileList", File_formatFileList("[test1.md, test2.sk, test3.txt]"), ("test1.md", "test2.sk", "test3.txt"))
+  
+  # really no way to test these since each server will have different files
+  # File_getFilesInDir
+  # File_recGetFilesInDir
+  
+  Test_assert("File_getRelativePath", File_getRelativePath("plugins"), "plugins")
+
+  set {_fileContent} to false
+  set {_fileContent} to true if File_getRelativeFileContent("eula.txt") is not false
+  Test_assertNotEqual("File_getRelativeFileContent", {_fileContent}, false)
+
+  Test_assert("File_fixPath", File_fixPath("/plugins/"), "\\plugins\\")
+  Test_assert("File_fixBackslashes", File_fixBackslashes("\\plugins\\"), "/plugins/")
+
+  #
+  # List
+  #
+
+  Test_assertArray("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
+  Test_assertArray("List_getDuplicates", List_getDuplicates("a", "b", "a", "c"), ("a"))
+  Test_assertArray("List_cap", List_cap(("a", "b", "c"), 2), ("a", "b"))
+  Test_assert("List_isEmpty", List_isEmpty({_l::*}), true)
+  Test_assert("List_isEmpty2", List_isEmpty(("a")), false)
+
+  #
+  # Location
+  #
+
+  set {_loc1} to location(10, 10, 10)
+  set {_loc2} to location(20, 20, 20)
+  Test_assertArray("Location_getExtremes", Location_getExtremes({_loc1}, {_loc2}), ({_loc1}, {_loc2}))
+  Test_assertArrayNotEqual("Location_getExtremes2", Location_getExtremes({_loc1}, {_loc2}), ({_loc2}, {_loc1}))
+  Test_assertArray("Location_checkAABB", Location_checkAABB(location(15, 15, 15), {_loc1}, {_loc2}), true)
+  Test_assertArrayNotEqual("Location_checkAABB2", Location_checkAABB(location(5, 5, 5), {_loc1}, {_loc2}), true)
+  Test_assert("Location_parseChunk", Location_parseChunk("world:0,0"), chunk at 0, 0 in "world")
+  Test_assertArray("Location_vectorDistance", Location_vectorDistance({_loc1}, {_loc2}), vector(10, 10, 10))
+  Test_assertArrayNotEqual("Location_vectorDistance2", Location_vectorDistance({_loc1}, {_loc2}), vector(0, 0, 0))
+
+  #
+  # Number
+  #
+
+  Test_assert("Number_parse", Number_parse(10000), "10,000")
+  Test_assert("Number_format", Number_format(10000), "10k")
+
+  #
+  # Text
+  #
+
+  Test_assert("Text_format", Text_format("%%s %%s", "Hello", "World"), "Hello World")
+  Test_assert("Text_coloredBoolean", Text_coloredBoolean(true), "&aTrue")
+  Test_assert("Text_toSmallFont", Text_toSmallFont("abc"), "ᴀʙᴄ")
+  Test_assert("Text_removeColorCodes", Text_removeColorCodes("&aHello"), "Hello")
+  Test_assert("Text_formatText", Text_formatText("st:smalltext"), "ѕᴍᴀʟʟᴛᴇхᴛ")
+  Test_assert("Text_toNumber", Text_toNumber("10000"), 10000)
+  
+  #
+  # Time
+  #
+
+  Test_assert("Time_ago", Time_ago("2024-11-02T00:07:27Z", "2024-11-22T22:23:08Z"), "20 days ago")
+  Test_assert("Time_agoUnix", Time_agoUnix(1000000000), "8475 days ago")
+  Test_assert("Time_durationBetween", Time_durationBetween("2024-11-02T00:07:27Z", "2024-11-22T22:23:08Z"), "20 days")
+  Test_assert("Time_durationBetweenUnix", Time_durationBetweenUnix(1000000000, 2000000000), "11574 days")
+  Test_assert("Time_getUnixFromStr", Time_getUnixFromStr("2001-09-09T01:46:40+00:00"), 1000000000)
+  Test_assert("Time_getDurationString", Time_getDurationString(1000), "16m 40s")
+
+  #
+  # Vector
+  #
+
+  Test_assertArray("Vector_parseFromString", Vector_parseFromString("x: 1, y: 2, z: 3"), vector(1, 2, 3))
+  Test_assert("Vector_getLookVector", Vector_getLookVector(location(0, 0, 0, world "", 10, 10)), vector(-0.17, -0.17, 0.97))
+  Test_assertArray("Vector_random", Vector_random().getClass().getName(), vector(0, 0, 0).getClass().getName())
+
+  set {_now} to unix timestamp of now * 1000
+  broadcast "&aRan internal tests in %Time_durationBetweenUnix({_now}, {_time})%"

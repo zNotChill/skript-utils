@@ -9,7 +9,7 @@
 function File_preventBacktracking(path: string) :: string:
   if {_path} contains "..":
     replace all ".." in {_path} with ""
-  if {_path} starts with "/":
+  while {_path} starts with "/":
     replace first "/" in {_path} with ""
   return {_path}
 
@@ -107,16 +107,16 @@ function File_getRelativeFileContent(relative_path: string) :: object:
     return false
   return {_content}
 
-# @name File_getFileContent
-# @description Gets the content of a file
+# @name File_fixPath
+# @description Fixes slashes in a file path
 #
 # @authors zNotChill
-# @param {string} path - The path of the file
-# @returns {string} - The content of the file
+# @param {string} path - The path to fix slashes in
+# @returns {string} - The path with fixed slashes
 
 function File_fixPath(path: string) :: string:
-  replace all "/" in {_path} with "\\"
   replace all "\" in {_path} with "\\"
+  replace all "/" in {_path} with "\\"
   return {_path}
 
 # @name File_fixBackslashes

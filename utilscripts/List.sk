@@ -51,3 +51,15 @@ function List_cap(list: objects, cap: number) :: objects:
     if size of {_newList::*} < {_cap}:
       add {_item} to {_newList::*}
   return {_newList::*}
+
+# @name List_isEmpty
+# @description Checks if a list is empty
+#
+# @authors zNotChill
+# @param {objects} list - The list to check
+# @returns {boolean} - Whether the list is empty
+
+function List_isEmpty(list: objects) :: boolean:
+  if size of {_list::*} = 0:
+    return true
+  return false

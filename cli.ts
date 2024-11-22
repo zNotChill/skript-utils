@@ -28,6 +28,7 @@ const watch = new cliffy.Command()
   .description("Watch for changes in your workspace")
   .action(() => {
     watchWorkspace();
+    watchUtilsDirectory();
   });
 const updateData = new cliffy.Command()
   .description("Update your stored data (docs, util files)")
@@ -43,10 +44,6 @@ const { options } = await new cliffy.Command()
     .command("watch", watch)
     .command("update-data", updateData)
     .parse(Deno.args);
-
-if(!options.init && Deno.args.length === 0) {
-  await watchWorkspace();
-}
 
 if (options.init) {
   const configExists = await doesConfigExist();
@@ -79,7 +76,7 @@ async function watchWorkspace() {
   main.setConfig(config);
 
   const watcher = Deno.watchFs(workspace);
-  const changeSpinner = ora("Watching for changes in " + workspace).start();
+  const changeSpinner = ora("[WORKSPACE] Watching for changes in " + workspace).start();
 
   let debounceTimeout: number | undefined;
 
@@ -90,7 +87,7 @@ async function watchWorkspace() {
       }
 
       debounceTimeout = setTimeout(async () => {
-        const configReload = ora("Detected change in skript-utils.json. Reloading config and repackaging.").start();
+        const configReload = ora("[CONFIG] Detected change in skript-utils.json. Reloading config and repackaging.").start();
         await repackage();
         
         config = await getConfig();
@@ -116,11 +113,9 @@ async function watchWorkspace() {
     }
 
     debounceTimeout = setTimeout(async () => {
-      console.clear();
       changeSpinner.stop();
 
-      
-      const spinner = ora("Detected change in " + event.paths[0] + ". Repacking.").start();
+      const spinner = ora("[WORKSPACE] Detected change in " + event.paths[0] + ". Repacking.").start();
       spinner.succeed();
       changeSpinner.start();
       await repackage();
@@ -128,7 +123,11 @@ async function watchWorkspace() {
   }
 }
 
-async function repackage() {
+async function repackage(from: string = "workspace") {
+  let prefix = "[WORKSPACE] ";
+  if (from === "utils") {
+    prefix = "[UTILS] ";
+  }
   await copyUtilsToAppData(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
   
   const config = main.getConfig();
@@ -147,10 +146,10 @@ async function repackage() {
       )
     )
 
-    console.log(`\nLoaded ${docs.length} docs and ${defs.length} definitions`);
+    ora(`${prefix}Loaded ${docs.length} docs and ${defs.length} definitions..`).succeed();
     main.parseAllFiles().then((files) => {
       const relativeFiles = files.map((file) => file.replace(workspace + "/", ""));
-      console.log("\nParsed files:", relativeFiles.join(", "));
+      ora(`${prefix}Parsed ${relativeFiles.length} files.`).info();
       
       const packagedContent = main.packageFunctions();
       
@@ -158,7 +157,7 @@ async function repackage() {
       const savePath = workspace + "/" + config.outputDir + "/" + config.outputFileName;
       
       Deno.writeTextFile(savePath, packagedContent);
-      ora("Packed functions to " + savePath).succeed();
+      ora(`${prefix}Packed functions to ${savePath}`).succeed();
     });
   }
 }
@@ -181,4 +180,23 @@ async function updateStoredData() {
   );
 
   spinner.succeed("Stored data updated.");
+}
+
+async function watchUtilsDirectory() {
+  const watcher = Deno.watchFs(import.meta.dirname + `/${SharedConstants.utilsDir}` || Deno.cwd());
+  ora("[UTILS] Watching for changes in utils directory...").succeed();
+
+  // cooldown to prevent multiple events from firing
+  let debounceTimeout: number | undefined;
+
+  for await (const _event of watcher) {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    debounceTimeout = setTimeout(async () => {
+      ora("[UTILS] Detected change in utils directory. Repacking.").succeed();
+      await repackage("utils");
+    }, 100);
+  }
 }

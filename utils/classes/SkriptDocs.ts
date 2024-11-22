@@ -9,6 +9,7 @@ export type SkriptDoc = {
   dependencies: Import[],
   authors: string[],
   example: DocExample,
+  flags?: string[],
 }
 
 export type DocParam = {

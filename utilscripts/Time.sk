@@ -4,12 +4,14 @@
 #
 # @authors zNotChill
 # @param {string} timeStr ["0"] - The time to compare
+# @param {string} from [""] - The time to compare from
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
 
-function Time_ago(timeStr: string) :: string:
+function Time_ago(timeStr: string, from: string = "") :: string:
   set {_parsedTime} to Instant.parse({_timeStr})
   set {_now} to Instant.now()
+  set {_now} to Instant.parse({_from}) if {_from} is not ""
   set {_duration} to Duration.between({_parsedTime}, {_now})
 
   if {_duration}.toDays() > 0:
@@ -26,12 +28,14 @@ function Time_ago(timeStr: string) :: string:
 #
 # @authors zNotChill
 # @param {integer} time - The time to compare
+# @param {string} from [""] - The time to compare from
 # @returns {string} - The time elapsed since the given time
 # @dependencies java.time.Instant, java.time.Duration
 
-function Time_agoUnix(time: integer) :: string:
+function Time_agoUnix(time: integer, from: string = "") :: string:
   set {_parsedTime} to Instant.ofEpochSecond({_time})
   set {_now} to Instant.now()
+  set {_now} to Instant.parse({_from}) if {_from} is not ""
   set {_duration} to Duration.between({_parsedTime}, {_now})
 
   if {_duration}.toDays() > 0:
@@ -63,6 +67,8 @@ function Time_durationBetween(timeStr1: string, timeStr2: string) :: string:
   if {_duration}.toMinutes() > 0:
     return "%{_duration}.toMinutes()% minutes"
 
+  if {_duration}.toSeconds() < 1:
+    return "%abs({_time1} - {_time2}) / 1000% seconds"
   return "%{_duration}.toSeconds()% seconds"
 
 # @name Time_durationBetweenUnix
@@ -85,6 +91,8 @@ function Time_durationBetweenUnix(time1: integer, time2: integer) :: string:
   if {_duration}.toMinutes() > 0:
     return "%{_duration}.toMinutes()% minutes"
 
+  if {_duration}.toSeconds() < 1:
+    return "%abs({_time1} - {_time2}) / 1000% seconds"
   return "%{_duration}.toSeconds()% seconds"
 
 # @name Time_getUnixFromStr
@@ -110,7 +118,7 @@ function Time_getDurationString(duration: number) :: string:
   set {_result} to ""
   set {_hours} to 0
   set {_minutes} to 0
-  set {_seconds} to {_seconds}
+  set {_seconds} to {_duration}
 
   if {_seconds} >= 3600:
     set {_hours} to floor({_seconds} / 3600)

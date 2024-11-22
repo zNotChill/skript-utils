@@ -54,3 +54,17 @@ function Location_parseChunk(chunk: string) :: chunk:
   set {_coords::3} to {_coords::3} parsed as integer
   
   return chunk at {_coords::2}, {_coords::3} in {_coords::1}
+
+# @name Location_vectorDistance
+# @description Gets the distance between two locations as a vector
+#
+# @authors zNotChill
+# @param {location} loc1 - The first location
+# @param {location} loc2 - The second location
+# @returns {vector} - The vector distance between the two locations
+
+function Location_vectorDistance(loc1: location, loc2: location) :: vector:
+  set {_x} to x coord of {_loc2} - x coord of {_loc1}
+  set {_y} to y coord of {_loc2} - y coord of {_loc1}
+  set {_z} to z coord of {_loc2} - z coord of {_loc1}
+  return vector({_x}, {_y}, {_z})

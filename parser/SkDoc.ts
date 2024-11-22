@@ -110,6 +110,11 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
 
           break
         }
+        case "@flags": {
+          const flags = contentLine.replace("@flags", "").trim().split(",").map(flag => flag.trim());
+          skriptDoc.flags = flags;
+          break;
+        }
         default:
           break;
       }
