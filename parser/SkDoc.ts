@@ -30,6 +30,7 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
       parameters: [],
       dependencies: [],
     };
+    skriptDoc.authors = [];
 
     for (const line of lines) {
       const trimmedLine = line.trim();
@@ -44,6 +45,7 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
 
       const contentLine = trimmedLine.slice(1).trim(); // remove the "#"
       const firstWord = contentLine.split(" ")[0].replace(":", "");
+
 
       switch (firstWord) {
         case "@name":

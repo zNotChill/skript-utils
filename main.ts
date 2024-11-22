@@ -140,6 +140,11 @@ class Main {
       markdown.push(`## ${doc.name}`);
       markdown.push(doc.description);
 
+      markdown.push("### Authors");
+      doc.authors?.forEach((author) => {
+        markdown.push(`- ${author}`);
+      });
+
       markdown.push("### Parameters");
       doc.parameters.forEach((param) => {
         markdown.push(`- **${param.unchangedName}** (${param.type})${param.defaultValue ? `: ${param.defaultValue}` : ""} - ${param.description}`);
