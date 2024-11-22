@@ -159,6 +159,9 @@ class Main {
         doc.dependencies.forEach((dep) => {
           markdown.push(`- ${dep.class}`);
         });
+      } else {
+        markdown.push("### Dependencies (skript-reflect)");
+        markdown.push("No dependencies.");
       }
 
       markdown.push("### Example");
