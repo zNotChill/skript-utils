@@ -8,6 +8,8 @@ Should either start with "##" or nothing at all. A single "#" will not function 
 - **hex** (string) - The hex color to convert
 ### Returns
 - **numbers** - The RGB values
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -20,6 +22,8 @@ Reverses a direction
 - **dir** (direction) - The direction to reverse
 ### Returns
 - **direction** - The reversed direction
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 Direction_reverse(north)
@@ -33,6 +37,8 @@ Gets a direction from a cardinal vector
 - **vec** (vector) - The vector, that will be getting turned into a direction
 ### Returns
 - **direction** - The direction
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 Direction_getFromVector(vector(0,0,-1))
@@ -46,6 +52,8 @@ Prevents backtracking in a file path
 - **path** (string) - The path to prevent backtracking in
 ### Returns
 - **string** - The path without backtracking
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -109,6 +117,8 @@ Gets the relative path of a file
 - **path** (string) - The path of the file
 ### Returns
 - **string** - The relative path of the file
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -137,6 +147,8 @@ Fixes slashes in a file path
 - **path** (string) - The path to fix slashes in
 ### Returns
 - **string** - The path with fixed slashes
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -149,6 +161,8 @@ Fixes backslashes in a file path
 - **path** (string) - The path to fix backslashes in
 ### Returns
 - **string** - The path with fixed backslashes
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -177,6 +191,8 @@ Gets the duplicates in a list
 - **list** (objects) - The list to get duplicates from
 ### Returns
 - **objects** - The duplicates in the list
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -190,6 +206,8 @@ Caps a list
 - **cap** (number) - The cap of the list
 ### Returns
 - **objects** - The capped list
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -202,6 +220,8 @@ Checks if a list is empty
 - **list** (objects) - The list to check
 ### Returns
 - **boolean** - Whether the list is empty
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -215,6 +235,8 @@ Gets the extremes of two locations
 - **pos2** (location) - The second position
 ### Returns
 - **locations** - The lowest and highest corners
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -229,6 +251,8 @@ Checks if a location is within an AABB
 - **corner2** (location) - The second corner of the AABB
 ### Returns
 - **boolean** - Whether the location is within the AABB
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -241,6 +265,8 @@ Parses a chunk from a string Vector2 location
 - **chunk** (string) - The chunk to parse
 ### Returns
 - **location** - The parsed chunk coordinates
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 Location_parseChunk("world:0,0")
@@ -255,6 +281,8 @@ Gets the distance between two locations as a vector
 - **loc2** (location) - The second location
 ### Returns
 - **vector** - The vector distance between the two locations
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -267,6 +295,8 @@ Parses a number into a string formatted by commas (e.g. 1,000,000)
 - **val** (number) - The number to parse
 ### Returns
 - **text** - The parsed number
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -279,6 +309,8 @@ Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 - **n** (number) - The number to format
 ### Returns
 - **text** - The formatted number
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -306,6 +338,8 @@ Announces the result of a test
 - **success** (boolean) - Whether the test succeeded
 ### Returns
 - No return value.
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -320,6 +354,8 @@ Compares a value to an expected value
 - **expected** (object) - The expected value
 ### Returns
 - No return value.
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -334,6 +370,8 @@ Compares a value to an expected value, but asserts that they are not equal
 - **expected** (object) - The expected value
 ### Returns
 - No return value.
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -348,6 +386,8 @@ Compares an array to an expected array
 - **expected** (objects) - The expected array
 ### Returns
 - No return value.
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -362,6 +402,8 @@ Compares an array to an expected array, but asserts that they are not equal
 - **expected** (objects) - The expected array
 ### Returns
 - No return value.
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -398,6 +440,8 @@ Formats a string with multiple values
 - **val10** (string) - The tenth value
 ### Returns
 - **string** - The formatted string
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -409,6 +453,8 @@ Returns a colored string based on a boolean value
 - **value** (boolean) - The boolean value
 ### Returns
 - **string** - The colored string
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -421,6 +467,8 @@ Converts text to small font
 - **text** (string) - The text to convert
 ### Returns
 - **string** - The converted text
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -433,6 +481,8 @@ Removes color codes from a string
 - **text** (string) - The text to remove color codes from
 ### Returns
 - **string** - The text without color codes
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -445,6 +495,8 @@ Formats text
 - **text** (string) - The text to format
 ### Returns
 - **string** - The formatted text
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -457,6 +509,8 @@ Converts a string to a number
 - **text** (string) - The text to convert
 ### Returns
 - **number** - The converted number
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -567,6 +621,8 @@ Parses a string into a vector
 - **str** (string) - The string to parse
 ### Returns
 - **vector** - The vector
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -579,6 +635,8 @@ Gets the look vector of a location
 - **loc** (location) - The location to get the look vector of
 ### Returns
 - **vector** - The look vector
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
@@ -590,6 +648,8 @@ Generates a random vector between -1 and 1
 ### Parameters
 ### Returns
 - **vector** - The random vector
+### Dependencies (skript-reflect)
+No dependencies.
 ### Example
 ```vb
 No example provided.
