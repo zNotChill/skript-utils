@@ -106,35 +106,11 @@ class Main {
     const markdown: string[] = [];
 
     markdown.push("# Skript Docs");
-    // markdown.push(...
-    //   this.functionDocs.map((doc) => `
-    //     ## ${doc.name}
-    //     ${doc.description}
-
-    //     ### Parameters
-    //     ${doc.parameters.map((param) => `
-    //       - **${param.unchangedName}** (${param.type})${param.defaultValue ? `: ${param.defaultValue}` : ""} - ${param.description}
-    //     `).join("\n")}
-
-    //     ### Returns
-    //     - ${doc.returns ? `**${doc.returns.type}** - ${doc.returns.description}` : "No return value."}
-
-    //     ${doc.dependencies.length > 0 ? `
-    //       ### Dependencies (skript-reflect)
-    //       ${doc.dependencies.map((dep) => `
-    //         - ${dep.class}
-    //       `).join("\n")}
-    //     ` : ""}
-
-    //     ### Example
-        
-    //     \`\`\`vb
-    //     ${doc.example ? `${doc.example.function}
-    //       # -> ${doc.example.returnedExample}`.replace(/^ {8}/gm, "") : "No example provided."}
-    //     \`\`\`
-    //     `.replace(/^ {8}/gm, "")
-    //   )
-    // )
+    markdown.push(...[
+      "> [!INFO]",
+      "> This file was automatically generated and should not be edited manually.",
+      "> This file can be generated using `skutils update-docs-md`."
+    ])
 
     this.functionDocs.forEach((doc) => {
       markdown.push(`## ${doc.name}`);

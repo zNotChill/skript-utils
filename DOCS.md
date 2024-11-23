@@ -1,4 +1,7 @@
 # Skript Docs
+> [!INFO]
+> This file was automatically generated and should not be edited manually.
+> This file can be generated using `skutils update-docs-md`.
 ## Color_hexToRGB
 Converts a hex color to RGB
 Should either start with "##" or nothing at all. A single "#" will not function properly.
