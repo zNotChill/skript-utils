@@ -18,10 +18,17 @@ No dependencies.
 # This example shows correct usage.
 Color_hexToRGB("##ff00ff")
 #   -> rgb(255, 0, 255)
+```
+```vb
+# This example shows correct usage.
+Color_hexToRGB("66ff66")
+#   -> rgb(102, 255, 102)
+```
 ```vb
 # This example shows wrong usage.
-! Color_hexToRGB("66ff66")
-#   -> rgb(102, 255, 102)
+! Color_hexToRGB("#66ff66")
+#   -> rgb(0, 111, 246)
+```
 ## Direction_reverse
 Reverses a direction
 ### Authors
@@ -37,6 +44,7 @@ No dependencies.
 # This example shows correct usage.
 Direction_reverse(north)
 #   -> south
+```
 ## Direction_getFromVector
 Gets a direction from a cardinal vector
 ### Authors
@@ -52,6 +60,7 @@ No dependencies.
 # This example shows correct usage.
 Direction_getFromVector(vector(0,0,-1))
 #   -> north
+```
 ## File_preventBacktracking
 Prevents backtracking in a file path
 ### Authors
@@ -67,6 +76,7 @@ No dependencies.
 # This example shows correct usage.
 File_preventBacktracking("/.././test")
 #   -> "./test"
+```
 ## File_formatFileList
 Formats a file list
 ### Authors
@@ -85,6 +95,7 @@ Formats a file list
 # This example shows correct usage.
 File_formatFileList("[plugins\Skript.jar, plugins\skript-reflect.jar]")
 #   -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
+```
 ## File_getFilesInDir
 Gets the files in a directory
 ### Authors
@@ -103,6 +114,7 @@ Gets the files in a directory
 # This example shows correct usage.
 File_getFilesInDir("plugins")
 #   -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
+```
 ## File_recGetFilesInDir
 Recursively gets the files in a directory
 ### Authors
@@ -121,6 +133,7 @@ Recursively gets the files in a directory
 # This example shows correct usage.
 File_recGetFilesInDir("plugins")
 #   -> ["plugins\Example.jar", "plugins\Example2.jar", "plugins\Example\config.yml"]
+```
 ## File_getRelativePath
 Gets the relative path of a file
 ### Authors
@@ -136,6 +149,7 @@ No dependencies.
 # This example shows correct usage.
 File_getRelativePath("plugins")
 #   -> "plugins"
+```
 ## File_getRelativeFileContent
 Gets the content of a file relative to the server path
 ### Authors
@@ -153,6 +167,7 @@ Gets the content of a file relative to the server path
 # This example shows correct usage.
 File_getRelativeFileContent("eula.txt")
 #   -> "eula=true"
+```
 ## File_fixPath
 Fixes slashes in a file path
 ### Authors
@@ -168,6 +183,7 @@ No dependencies.
 # This example shows correct usage.
 File_fixPath("/plugins/")
 #   -> "\\plugins\\"
+```
 ## File_fixBackslashes
 Fixes backslashes in a file path
 ### Authors
@@ -183,6 +199,7 @@ No dependencies.
 # This example shows correct usage.
 File_fixBackslashes("\\plugins\\")
 #   -> "/plugins/"
+```
 ## List_removeEmptyEntries
 Removes empty entries from a list
 ### Authors
@@ -199,6 +216,7 @@ Removes empty entries from a list
 # This example shows correct usage.
 List_removeEmptyEntries("a", "", "b")
 #   -> "a", "b"
+```
 ## List_getDuplicates
 Gets the duplicates in a list
 ### Authors
@@ -227,6 +245,7 @@ No dependencies.
 # This example shows correct usage.
 List_cap("a", "b", "c", 2)
 #   -> "a", "b"
+```
 ## List_isEmpty
 Checks if a list is empty
 ### Authors
@@ -242,6 +261,7 @@ No dependencies.
 # This example shows correct usage.
 List_isEmpty("a", "b", "c")
 #   -> false
+```
 ## Location_getExtremes
 Gets the extremes of two locations
 Lowest corner is always the first in the returned list
@@ -259,6 +279,7 @@ No dependencies.
 # This example shows correct usage.
 Location_getExtremes(location(10, 10, 10), location(5, 5, 5))
 #   -> location(5, 5, 5), location(10, 10, 10)
+```
 ## Location_checkAABB
 Checks if a location is within an AABB
 ### Authors
@@ -276,6 +297,7 @@ No dependencies.
 # This example shows correct usage.
 Location_checkAABB(location(5, 5, 5), location(10, 10, 10), location(0, 0, 0))
 #   -> true
+```
 ## Location_parseChunk
 Parses a chunk from a string Vector2 location
 ### Authors
@@ -291,6 +313,7 @@ No dependencies.
 # This example shows correct usage.
 Location_parseChunk("world:0,0")
 #   -> chunk (0,0) of world
+```
 ## Location_vectorDistance
 Gets the distance between two locations as a vector
 ### Authors
@@ -307,6 +330,7 @@ No dependencies.
 # This example shows correct usage.
 Location_vectorDistance(location(10, 10, 10), location(20, 20, 20))
 #   -> vector(10, 10, 10)
+```
 ## Number_parse
 Parses a number into a string formatted by commas (e.g. 1,000,000)
 ### Authors
@@ -322,6 +346,7 @@ No dependencies.
 # This example shows correct usage.
 Number_parse(1000000)
 #   -> "1,000,000"
+```
 ## Number_format
 Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 ### Authors
@@ -337,6 +362,7 @@ No dependencies.
 # This example shows correct usage.
 Number_format(1000)
 #   -> "1k"
+```
 ## Server_getPath
 Returns the path of the server
 ### Authors
@@ -352,6 +378,7 @@ Returns the path of the server
 # This example shows correct usage.
 Server_getPath()
 #   -> "D:\Server\"
+```
 ## Test_announce
 Announces the result of a test
 ### Authors
@@ -383,6 +410,7 @@ No dependencies.
 # This example shows correct usage.
 Test_assert("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
 #   -> true
+```
 ## Test_assertNotEqual
 Compares a value to an expected value, but asserts that they are not equal
 ### Authors
@@ -400,6 +428,7 @@ No dependencies.
 # This example shows correct usage.
 Test_assertNotEqual("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
 #   -> false
+```
 ## Test_assertArray
 Compares an array to an expected array
 ### Authors
@@ -417,6 +446,7 @@ No dependencies.
 # This example shows correct usage.
 Test_assertArray("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
 #   -> true
+```
 ## Test_assertArrayNotEqual
 Compares an array to an expected array, but asserts that they are not equal
 ### Authors
@@ -434,6 +464,7 @@ No dependencies.
 # This example shows correct usage.
 Test_assertArrayNotEqual("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
 #   -> false
+```
 ## Test_runInternalTests
 Runs an internal test for each utility
 ### Authors
@@ -471,6 +502,7 @@ No dependencies.
 # This example shows correct usage.
 Text_format("Hello, %%s!", "world")
 #   -> "Hello, world!"
+```
 ## Text_coloredBoolean
 Returns a colored string based on a boolean value
 ### Authors
@@ -485,6 +517,7 @@ No dependencies.
 # This example shows correct usage.
 Text_coloredBoolean(true)
 #   -> "&aTrue"
+```
 ## Text_toSmallFont
 Converts text to small font
 ### Authors
@@ -500,6 +533,7 @@ No dependencies.
 # This example shows correct usage.
 Text_toSmallFont("Hello, world!")
 #   -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
+```
 ## Text_removeColorCodes
 Removes color codes from a string
 ### Authors
@@ -515,6 +549,7 @@ No dependencies.
 # This example shows correct usage.
 Text_removeColorCodes("&aHello, &cworld!")
 #   -> "Hello, world!"
+```
 ## Text_formatText
 Formats text
 ### Authors
@@ -530,6 +565,7 @@ No dependencies.
 # This example shows correct usage.
 Text_formatText("st:Hello, world!")
 #   -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
+```
 ## Text_toNumber
 Converts a string to a number
 ### Authors
@@ -545,6 +581,7 @@ No dependencies.
 # This example shows correct usage.
 Text_toNumber("5")
 #   -> 5
+```
 ## Time_ago
 Returns a string representing the time elapsed since the given time
 Parameter "from" is optional but can be used to compare the time to a different time than the current system time
@@ -564,6 +601,7 @@ Parameter "from" is optional but can be used to compare the time to a different 
 # This example shows correct usage.
 Time_ago("2021-01-01T00:00:00Z")
 #   -> "1421 days ago"
+```
 ## Time_agoUnix
 Returns a string representing the time elapsed since the given time
 Parameter "from" is optional but can be used to compare the time to a different time than the current system time
@@ -583,6 +621,7 @@ Parameter "from" is optional but can be used to compare the time to a different 
 # This example shows correct usage.
 Time_agoUnix(1612137600)
 #   -> "1390 days ago"
+```
 ## Time_durationBetween
 Returns a string representing the duration between two times
 ### Authors
@@ -601,6 +640,7 @@ Returns a string representing the duration between two times
 # This example shows correct usage.
 Time_durationBetween("2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z")
 #   -> "366 days"
+```
 ## Time_durationBetweenUnix
 Returns a string representing the duration between two times
 ### Authors
@@ -619,6 +659,7 @@ Returns a string representing the duration between two times
 # This example shows correct usage.
 Time_durationBetweenUnix(1612137600, 1612139000)
 #   -> "23 minutes"
+```
 ## Time_getUnixFromStr
 Returns the Unix time from a string
 ### Authors
@@ -635,6 +676,7 @@ Returns the Unix time from a string
 # This example shows correct usage.
 Time_getUnixFromStr("2024-01-01T00:00:00Z")
 #   -> 1704067200
+```
 ## Time_getStrFromUnix
 Returns the string from a Unix time
 ### Authors
@@ -651,6 +693,7 @@ Returns the string from a Unix time
 # This example shows correct usage.
 Time_getStrFromUnix(1704067200)
 #   -> "2024-01-01T00:00:00Z"
+```
 ## Time_getDurationString
 Returns a string representing the duration
 ### Authors
@@ -666,6 +709,7 @@ No dependencies.
 # This example shows correct usage.
 Time_getDurationString(3661)
 #   -> "1h 1m"
+```
 ## Vector_parseFromString
 Parses a string into a vector
 ### Authors
@@ -681,6 +725,7 @@ No dependencies.
 # This example shows correct usage.
 Vector_parseFromString("x: 1, y: 2, z: 3")
 #   -> vector(1, 2, 3)
+```
 ## Vector_getLookVector
 Gets the look vector of a location
 ### Authors
@@ -696,6 +741,7 @@ No dependencies.
 # This example shows correct usage.
 Vector_getLookVector(location(0, 0, 0, world "", 10, 10))
 #   -> vector(-0.17, -0.17, 0.97)
+```
 ## Vector_random
 Generates a random vector between -1 and 1
 ### Authors
@@ -710,3 +756,4 @@ No dependencies.
 # This example shows correct usage.
 Vector_random()
 #   -> vector(-0.86, 0.93, -0.36)
+```
