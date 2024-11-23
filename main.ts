@@ -150,6 +150,7 @@ class Main {
             `# ${example.showsWrongUsage ? "This example shows correct usage." : "This example shows wrong usage."}`,
             `${example.function}`,
             `#   -> ${example.returnedExample}`,
+            "```"
           ]);
         });
       }
