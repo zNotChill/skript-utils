@@ -23,14 +23,19 @@ export async function loadAllDocs(): Promise<SkriptDoc[]> {
 export function parseSkriptDocs(content: string): SkriptDoc[] {
   const docs: SkriptDoc[] = [];
   const blocks = content.split(/\n\s*\n/);
-
+  
   for (const block of blocks) {
     const lines = block.split("\n");
-    const skriptDoc: Partial<SkriptDoc> = {
+    const skriptDoc: SkriptDoc = {
+      name: "",
+      description: "",
       parameters: [],
+      returns: { type: "", description: "" },
       dependencies: [],
+      authors: [],
+      examples: [],
+      flags: [],
     };
-    skriptDoc.authors = [];
 
     for (const line of lines) {
       const trimmedLine = line.trim();
@@ -46,14 +51,13 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
       const contentLine = trimmedLine.slice(1).trim(); // remove the "#"
       const firstWord = contentLine.split(" ")[0].replace(":", "");
 
-
       switch (firstWord) {
         case "@name":
           skriptDoc.name = contentLine.replace("@name", "").trim();
           break;
         case "@description":
           // If it already has a registered description, treat it as a multi-line description
-          if (skriptDoc.description) {
+          if (skriptDoc.description !== "") {
             skriptDoc.description += "\n" + contentLine.replace("@description", "").trim();
           } else {
             skriptDoc.description = contentLine.replace("@description", "").trim();
@@ -77,7 +81,7 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
               defaultValue: defaultVal,
               description,
             };
-            skriptDoc.parameters!.push(param);
+            skriptDoc.parameters.push(param);
           }
           break;
         }
@@ -103,13 +107,14 @@ export function parseSkriptDocs(content: string): SkriptDoc[] {
         }
         case "@example": {
           const example = contentLine.replace("@example", "").trim();
+          const showsWrongUsage = example.startsWith("!") ? false : true;
           const [functionName, returnedExample] = example.split("->").map(e => e.trim());
 
-          skriptDoc.example = {
+          skriptDoc.examples.push({
             function: functionName,
             returnedExample,
-          };
-
+            showsWrongUsage,
+          });
           break
         }
         case "@flags": {

@@ -37,20 +37,16 @@ const updateData = new cliffy.Command()
   });
 const updateDocsMarkdown = new cliffy.Command()
   .description("Update the markdown docs")
-  .action(async () => {
+  .action(() => {
     ora("Loading documentation...").info();
-    
-    main.setDefs([]);
-    main.setImports([]);
-    await main.loadAllDocs();
-    await main.loadAllDefinitions();
-
-    Deno.writeFileSync(
-      "./DOCS.md",
-      new TextEncoder().encode(main.getMarkdownDocs().join("\n"))
-    );
-
-    ora("DOCS.md updated.").succeed();
+    updateStoredData().then(() => {
+      Deno.writeFileSync(
+        "./DOCS.md",
+        new TextEncoder().encode(main.getMarkdownDocs().join("\n"))
+      );
+  
+      ora("DOCS.md updated.").succeed();
+    })
   });
 
 const { options } = await new cliffy.Command()
@@ -198,6 +194,8 @@ async function updateStoredData() {
   );
 
   spinner.succeed("Stored data updated.");
+
+  return true;
 }
 
 async function watchUtilsDirectory() {

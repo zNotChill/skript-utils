@@ -7,6 +7,8 @@
 # @param {string} hex - The hex color to convert
 # @returns {numbers} - The RGB values
 # @example Color_hexToRGB("##ff00ff") -> rgb(255, 0, 255)
+# @example Color_hexToRGB("66ff66") -> rgb(102, 255, 102)
+# @example ! Color_hexToRGB("#66ff66") -> rgb(0, 111, 246)
 
 function Color_hexToRGB(hex: string) :: object:
   replace all "##" with "" in {_hex}

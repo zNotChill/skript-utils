@@ -8,8 +8,8 @@ export type SkriptDoc = {
   returns: DocReturn,
   dependencies: Import[],
   authors: string[],
-  example: DocExample,
-  flags?: string[],
+  examples: DocExample[],
+  flags: string[],
 }
 
 export type DocParam = {
@@ -27,6 +27,7 @@ export type DocReturn = {
 export type DocExample = {
   function: string,
   returnedExample: string,
+  showsWrongUsage: boolean,
 }
 
 export type DocDependency = Import

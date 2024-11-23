@@ -1,5 +1,5 @@
 # Skript Docs
-> [!INFO]
+> [!WARNING]
 > This file was automatically generated and should not be edited manually.
 > This file can be generated using `skutils update-docs-md`.
 ## Color_hexToRGB
@@ -13,11 +13,15 @@ Should either start with "##" or nothing at all. A single "#" will not function 
 - **numbers** - The RGB values
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Color_hexToRGB("##ff00ff")
-  # -> rgb(255, 0, 255)
-```
+#   -> rgb(255, 0, 255)
+```vb
+# This example shows wrong usage.
+! Color_hexToRGB("66ff66")
+#   -> rgb(102, 255, 102)
 ## Direction_reverse
 Reverses a direction
 ### Authors
@@ -28,11 +32,11 @@ Reverses a direction
 - **direction** - The reversed direction
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Direction_reverse(north)
-  # -> south
-```
+#   -> south
 ## Direction_getFromVector
 Gets a direction from a cardinal vector
 ### Authors
@@ -43,11 +47,11 @@ Gets a direction from a cardinal vector
 - **direction** - The direction
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Direction_getFromVector(vector(0,0,-1))
-  # -> north
-```
+#   -> north
 ## File_preventBacktracking
 Prevents backtracking in a file path
 ### Authors
@@ -58,11 +62,11 @@ Prevents backtracking in a file path
 - **string** - The path without backtracking
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_preventBacktracking("/.././test")
-  # -> "./test"
-```
+#   -> "./test"
 ## File_formatFileList
 Formats a file list
 ### Authors
@@ -76,11 +80,11 @@ Formats a file list
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.util.ArrayList
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_formatFileList("[plugins\Skript.jar, plugins\skript-reflect.jar]")
-  # -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
-```
+#   -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
 ## File_getFilesInDir
 Gets the files in a directory
 ### Authors
@@ -94,11 +98,11 @@ Gets the files in a directory
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.io.File
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_getFilesInDir("plugins")
-  # -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
-```
+#   -> ["plugins\Skript.jar", "plugins\skript-reflect.jar"]
 ## File_recGetFilesInDir
 Recursively gets the files in a directory
 ### Authors
@@ -112,11 +116,11 @@ Recursively gets the files in a directory
 - java.nio.file.DirectoryStream
 - java.nio.file.Files
 - java.io.File
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_recGetFilesInDir("plugins")
-  # -> ["plugins\Example.jar", "plugins\Example2.jar", "plugins\Example\config.yml"]
-```
+#   -> ["plugins\Example.jar", "plugins\Example2.jar", "plugins\Example\config.yml"]
 ## File_getRelativePath
 Gets the relative path of a file
 ### Authors
@@ -127,11 +131,11 @@ Gets the relative path of a file
 - **string** - The relative path of the file
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_getRelativePath("plugins")
-  # -> "plugins"
-```
+#   -> "plugins"
 ## File_getRelativeFileContent
 Gets the content of a file relative to the server path
 ### Authors
@@ -144,11 +148,11 @@ Gets the content of a file relative to the server path
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.nio.file.Files
 - java.nio.file.Paths
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_getRelativeFileContent("eula.txt")
-  # -> "eula=true"
-```
+#   -> "eula=true"
 ## File_fixPath
 Fixes slashes in a file path
 ### Authors
@@ -159,11 +163,11 @@ Fixes slashes in a file path
 - **string** - The path with fixed slashes
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_fixPath("/plugins/")
-  # -> "\\plugins\\"
-```
+#   -> "\\plugins\\"
 ## File_fixBackslashes
 Fixes backslashes in a file path
 ### Authors
@@ -174,11 +178,11 @@ Fixes backslashes in a file path
 - **string** - The path with fixed backslashes
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 File_fixBackslashes("\\plugins\\")
-  # -> "/plugins/"
-```
+#   -> "/plugins/"
 ## List_removeEmptyEntries
 Removes empty entries from a list
 ### Authors
@@ -190,11 +194,11 @@ Removes empty entries from a list
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.util.ArrayList
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 List_removeEmptyEntries("a", "", "b")
-  # -> "a", "b"
-```
+#   -> "a", "b"
 ## List_getDuplicates
 Gets the duplicates in a list
 ### Authors
@@ -205,10 +209,8 @@ Gets the duplicates in a list
 - **objects** - The duplicates in the list
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
-```vb
-No example provided.
-```
+### Example(s)
+*No examples provided. Maybe you can help by providing one?*
 ## List_cap
 Caps a list
 ### Authors
@@ -220,11 +222,11 @@ Caps a list
 - **objects** - The capped list
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 List_cap("a", "b", "c", 2)
-  # -> "a", "b"
-```
+#   -> "a", "b"
 ## List_isEmpty
 Checks if a list is empty
 ### Authors
@@ -235,11 +237,11 @@ Checks if a list is empty
 - **boolean** - Whether the list is empty
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 List_isEmpty("a", "b", "c")
-  # -> false
-```
+#   -> false
 ## Location_getExtremes
 Gets the extremes of two locations
 Lowest corner is always the first in the returned list
@@ -252,11 +254,11 @@ Lowest corner is always the first in the returned list
 - **locations** - The lowest and highest corners
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Location_getExtremes(location(10, 10, 10), location(5, 5, 5))
-  # -> location(5, 5, 5), location(10, 10, 10)
-```
+#   -> location(5, 5, 5), location(10, 10, 10)
 ## Location_checkAABB
 Checks if a location is within an AABB
 ### Authors
@@ -269,11 +271,11 @@ Checks if a location is within an AABB
 - **boolean** - Whether the location is within the AABB
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Location_checkAABB(location(5, 5, 5), location(10, 10, 10), location(0, 0, 0))
-  # -> true
-```
+#   -> true
 ## Location_parseChunk
 Parses a chunk from a string Vector2 location
 ### Authors
@@ -284,11 +286,11 @@ Parses a chunk from a string Vector2 location
 - **location** - The parsed chunk coordinates
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Location_parseChunk("world:0,0")
-  # -> chunk (0,0) of world
-```
+#   -> chunk (0,0) of world
 ## Location_vectorDistance
 Gets the distance between two locations as a vector
 ### Authors
@@ -300,11 +302,11 @@ Gets the distance between two locations as a vector
 - **vector** - The vector distance between the two locations
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Location_vectorDistance(location(10, 10, 10), location(20, 20, 20))
-  # -> vector(10, 10, 10)
-```
+#   -> vector(10, 10, 10)
 ## Number_parse
 Parses a number into a string formatted by commas (e.g. 1,000,000)
 ### Authors
@@ -315,11 +317,11 @@ Parses a number into a string formatted by commas (e.g. 1,000,000)
 - **text** - The parsed number
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Number_parse(1000000)
-  # -> "1,000,000"
-```
+#   -> "1,000,000"
 ## Number_format
 Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 ### Authors
@@ -330,11 +332,11 @@ Formats a number into a string with a suffix (e.g. 1,000 -> 1k)
 - **text** - The formatted number
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Number_format(1000)
-  # -> "1k"
-```
+#   -> "1k"
 ## Server_getPath
 Returns the path of the server
 ### Authors
@@ -345,11 +347,11 @@ Returns the path of the server
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.io.File
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Server_getPath()
-  # -> "D:\Server\"
-```
+#   -> "D:\Server\"
 ## Test_announce
 Announces the result of a test
 ### Authors
@@ -359,13 +361,11 @@ Announces the result of a test
 - **success** (boolean) - Whether the test succeeded
 - **is_not_equal_test** (boolean) - Whether the test is a "not equal" assertion
 ### Returns
-- No return value.
+- **** - 
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
-```vb
-No example provided.
-```
+### Example(s)
+*No examples provided. Maybe you can help by providing one?*
 ## Test_assert
 Compares a value to an expected value
 ### Authors
@@ -378,11 +378,11 @@ Compares a value to an expected value
 - **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Test_assert("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
-  # -> true
-```
+#   -> true
 ## Test_assertNotEqual
 Compares a value to an expected value, but asserts that they are not equal
 ### Authors
@@ -395,11 +395,11 @@ Compares a value to an expected value, but asserts that they are not equal
 - **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Test_assertNotEqual("Color_hexToRGB", Color_hexToRGB("##ff0000"), rgb(255, 0, 0))
-  # -> false
-```
+#   -> false
 ## Test_assertArray
 Compares an array to an expected array
 ### Authors
@@ -412,11 +412,11 @@ Compares an array to an expected array
 - **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Test_assertArray("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
-  # -> true
-```
+#   -> true
 ## Test_assertArrayNotEqual
 Compares an array to an expected array, but asserts that they are not equal
 ### Authors
@@ -429,25 +429,23 @@ Compares an array to an expected array, but asserts that they are not equal
 - **boolean** - Whether the assertion succeeded
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Test_assertArrayNotEqual("List_removeEmptyEntries", List_removeEmptyEntries("a", "", "b"), ("a", "b"))
-  # -> false
-```
+#   -> false
 ## Test_runInternalTests
 Runs an internal test for each utility
 ### Authors
 - zNotChill
 ### Parameters
 ### Returns
-- No return value.
+- **** - 
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.io.File
-### Example
-```vb
-No example provided.
-```
+### Example(s)
+*No examples provided. Maybe you can help by providing one?*
 ## Text_format
 Formats a string with multiple values
 ### Authors
@@ -468,11 +466,11 @@ Formats a string with multiple values
 - **string** - The formatted string
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_format("Hello, %%s!", "world")
-  # -> "Hello, world!"
-```
+#   -> "Hello, world!"
 ## Text_coloredBoolean
 Returns a colored string based on a boolean value
 ### Authors
@@ -482,11 +480,11 @@ Returns a colored string based on a boolean value
 - **string** - The colored string
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_coloredBoolean(true)
-  # -> "&aTrue"
-```
+#   -> "&aTrue"
 ## Text_toSmallFont
 Converts text to small font
 ### Authors
@@ -497,11 +495,11 @@ Converts text to small font
 - **string** - The converted text
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_toSmallFont("Hello, world!")
-  # -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
-```
+#   -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 ## Text_removeColorCodes
 Removes color codes from a string
 ### Authors
@@ -512,11 +510,11 @@ Removes color codes from a string
 - **string** - The text without color codes
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_removeColorCodes("&aHello, &cworld!")
-  # -> "Hello, world!"
-```
+#   -> "Hello, world!"
 ## Text_formatText
 Formats text
 ### Authors
@@ -527,11 +525,11 @@ Formats text
 - **string** - The formatted text
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_formatText("st:Hello, world!")
-  # -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
-```
+#   -> "ʜᴇʟʟᴏ, ᴡᴏʀʟᴅ!"
 ## Text_toNumber
 Converts a string to a number
 ### Authors
@@ -542,11 +540,11 @@ Converts a string to a number
 - **number** - The converted number
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Text_toNumber("5")
-  # -> 5
-```
+#   -> 5
 ## Time_ago
 Returns a string representing the time elapsed since the given time
 Parameter "from" is optional but can be used to compare the time to a different time than the current system time
@@ -561,11 +559,11 @@ Parameter "from" is optional but can be used to compare the time to a different 
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_ago("2021-01-01T00:00:00Z")
-  # -> "1421 days ago"
-```
+#   -> "1421 days ago"
 ## Time_agoUnix
 Returns a string representing the time elapsed since the given time
 Parameter "from" is optional but can be used to compare the time to a different time than the current system time
@@ -580,11 +578,11 @@ Parameter "from" is optional but can be used to compare the time to a different 
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_agoUnix(1612137600)
-  # -> "1390 days ago"
-```
+#   -> "1390 days ago"
 ## Time_durationBetween
 Returns a string representing the duration between two times
 ### Authors
@@ -598,11 +596,11 @@ Returns a string representing the duration between two times
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_durationBetween("2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z")
-  # -> "366 days"
-```
+#   -> "366 days"
 ## Time_durationBetweenUnix
 Returns a string representing the duration between two times
 ### Authors
@@ -616,11 +614,11 @@ Returns a string representing the duration between two times
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
 - java.time.Duration
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_durationBetweenUnix(1612137600, 1612139000)
-  # -> "23 minutes"
-```
+#   -> "23 minutes"
 ## Time_getUnixFromStr
 Returns the Unix time from a string
 ### Authors
@@ -632,11 +630,11 @@ Returns the Unix time from a string
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_getUnixFromStr("2024-01-01T00:00:00Z")
-  # -> 1704067200
-```
+#   -> 1704067200
 ## Time_getStrFromUnix
 Returns the string from a Unix time
 ### Authors
@@ -648,11 +646,11 @@ Returns the string from a Unix time
 ### Dependencies (skript-reflect)
 *Dependencies can be ignored if you are using the auto packager since this is done automatically.*
 - java.time.Instant
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_getStrFromUnix(1704067200)
-  # -> "2024-01-01T00:00:00Z"
-```
+#   -> "2024-01-01T00:00:00Z"
 ## Time_getDurationString
 Returns a string representing the duration
 ### Authors
@@ -663,11 +661,11 @@ Returns a string representing the duration
 - **string** - The duration string
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Time_getDurationString(3661)
-  # -> "1h 1m"
-```
+#   -> "1h 1m"
 ## Vector_parseFromString
 Parses a string into a vector
 ### Authors
@@ -678,11 +676,11 @@ Parses a string into a vector
 - **vector** - The vector
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Vector_parseFromString("x: 1, y: 2, z: 3")
-  # -> vector(1, 2, 3)
-```
+#   -> vector(1, 2, 3)
 ## Vector_getLookVector
 Gets the look vector of a location
 ### Authors
@@ -693,11 +691,11 @@ Gets the look vector of a location
 - **vector** - The look vector
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Vector_getLookVector(location(0, 0, 0, world "", 10, 10))
-  # -> vector(-0.17, -0.17, 0.97)
-```
+#   -> vector(-0.17, -0.17, 0.97)
 ## Vector_random
 Generates a random vector between -1 and 1
 ### Authors
@@ -707,8 +705,8 @@ Generates a random vector between -1 and 1
 - **vector** - The random vector
 ### Dependencies (skript-reflect)
 No dependencies.
-### Example
+### Example(s)
 ```vb
+# This example shows correct usage.
 Vector_random()
-  # -> vector(-0.86, 0.93, -0.36)
-```
+#   -> vector(-0.86, 0.93, -0.36)

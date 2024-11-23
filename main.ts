@@ -107,7 +107,7 @@ class Main {
 
     markdown.push("# Skript Docs");
     markdown.push(...[
-      "> [!INFO]",
+      "> [!WARNING]",
       "> This file was automatically generated and should not be edited manually.",
       "> This file can be generated using `skutils update-docs-md`."
     ])
@@ -140,11 +140,19 @@ class Main {
         markdown.push("No dependencies.");
       }
 
-      markdown.push("### Example");
-      markdown.push(`\`\`\`vb
-${doc.example ? `${doc.example.function}
-  # -> ${doc.example.returnedExample}`.replace(/^ {8}/gm, "") : "No example provided."}
-\`\`\``);
+      markdown.push("### Example(s)");
+      if (doc.examples.length === 0) {
+        markdown.push("*No examples provided. Maybe you can help by providing one?*");
+      } else {
+        doc.examples.forEach((example) => {
+          markdown.push(...[
+            "```vb",
+            `# ${example.showsWrongUsage ? "This example shows correct usage." : "This example shows wrong usage."}`,
+            `${example.function}`,
+            `#   -> ${example.returnedExample}`,
+          ]);
+        });
+      }
     });
 
     return markdown;
