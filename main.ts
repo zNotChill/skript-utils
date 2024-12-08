@@ -112,6 +112,11 @@ class Main {
       "> This file can be generated using `skutils update-docs-md`."
     ])
 
+    markdown.push("## Table of Contents");
+    this.functionDocs.forEach((doc) => {
+      markdown.push(`- [${doc.name}](#${doc.name})`);
+    });
+
     this.functionDocs.forEach((doc) => {
       markdown.push(`## ${doc.name}`);
       markdown.push(doc.description);
