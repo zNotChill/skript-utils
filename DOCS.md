@@ -4,6 +4,9 @@
 > This file can be generated using `skutils update-docs-md`.
 ## Table of Contents
 - [Color_hexToRGB](#Color_hexToRGB)
+- [Color_rgbToHex](#Color_rgbToHex)
+- [Color_hslToHex](#Color_hslToHex)
+- [hsl](#hsl)
 - [Direction_reverse](#Direction_reverse)
 - [Direction_getFromVector](#Direction_getFromVector)
 - [File_preventBacktracking](#File_preventBacktracking)
@@ -73,6 +76,91 @@ Color_hexToRGB("66ff66")
 # This example shows wrong usage.
 ! Color_hexToRGB("#66ff66")
 #   -> rgb(0, 111, 246)
+```
+## Color_rgbToHex
+Converts RGB color to HEX color (hashtag excluded)
+### Authors
+- Sorbon
+### Parameters
+- **red** (integer) - The red value of the color
+- **green** (integer) - The green value of the color
+- **blue** (integer) - The blue value of the color
+### Returns
+- **** - 
+### Dependencies (skript-reflect)
+No dependencies.
+### Example(s)
+```vb
+# This example shows correct usage.
+Color_rgbToHex(255, 0, 0)
+#   -> "FF0000"
+```
+```vb
+# This example shows correct usage.
+Color_rgbToHex(0, 255, 0)
+#   -> "00FF00"
+```
+```vb
+# This example shows correct usage.
+Color_rgbToHex(0, 0, 255)
+#   -> "0000FF"
+```
+## Color_hslToHex
+Converts HSL color to HEX color (hashtag excluded)
+### Authors
+- zNotChill
+### Parameters
+- **hue** (integer) - The hue of the color
+- **saturation** (integer) - The saturation of the color
+- **lightness** (integer) - The lightness of the color
+### Returns
+- **** - 
+### Dependencies (skript-reflect)
+No dependencies.
+### Example(s)
+```vb
+# This example shows correct usage.
+Color_hslToHex(0, 100, 50)
+#   -> "FF0000"
+```
+```vb
+# This example shows correct usage.
+Color_hslToHex(120, 100, 50)
+#   -> "00FF00"
+```
+```vb
+# This example shows correct usage.
+Color_hslToHex(240, 100, 50)
+#   -> "0000FF"
+```
+## hsl
+A shorthand to Color_hexToRGB
+Converts HSL color to HEX color (hashtag excluded)
+### Authors
+- zNotChill
+### Parameters
+- **hue** (integer) - The hue of the color
+- **saturation** (integer) - The saturation of the color
+- **lightness** (integer) - The lightness of the color
+### Returns
+- **** - 
+### Dependencies (skript-reflect)
+No dependencies.
+### Example(s)
+```vb
+# This example shows correct usage.
+hsl(0, 100, 50)
+#   -> "FF0000"
+```
+```vb
+# This example shows correct usage.
+hsl(120, 100, 50)
+#   -> "00FF00"
+```
+```vb
+# This example shows correct usage.
+hsl(240, 100, 50)
+#   -> "0000FF"
 ```
 ## Direction_reverse
 Reverses a direction

@@ -18,3 +18,72 @@ function Color_hexToRGB(hex: string) :: object:
     add (index of first element out of (split {_n} at "") in "0123456789abcdefklmnor" -1)* 16 to {_rgb::%loop-value-1%}
     add index of 2nd element out of (split {_n} at "") in "0123456789abcdefklmnor"-1  to {_rgb::%loop-value-1%}
   return rgb({_rgb::1}, {_rgb::2}, {_rgb::3})
+
+# @name Color_rgbToHex
+# @description Converts RGB color to HEX color (hashtag excluded)
+#
+# @authors Sorbon
+# @param {integer} red - The red value of the color
+# @param {integer} green - The green value of the color
+# @param {integer} blue - The blue value of the color
+# @return {string} The HEX color
+# @example Color_rgbToHex(255, 0, 0) -> "FF0000"
+# @example Color_rgbToHex(0, 255, 0) -> "00FF00"
+# @example Color_rgbToHex(0, 0, 255) -> "0000FF"
+
+function Color_rgbToHex(red: integer, green: integer, blue: integer) :: string:
+  set {_numbers::*} to {_red}, {_green}, {_blue}
+  loop {_numbers::*}:
+    set {_r} to join {_r}, (character at (mod((floor(min(max(loop-value, 0), 255) / 16)), 16) + 1) in "0123456789ABCDEF") and (character at ((mod(min(max(loop-value, 0), 255), 16)) + 1) in "0123456789ABCDEF")
+  return {_r}
+
+# @name Color_hslToHex
+# @description Converts HSL color to HEX color (hashtag excluded)
+#
+# @authors zNotChill
+# @param {integer} hue - The hue of the color
+# @param {integer} saturation - The saturation of the color
+# @param {integer} lightness - The lightness of the color
+# @return {string} The HEX color
+# @example Color_hslToHex(0, 100, 50) -> "FF0000"
+# @example Color_hslToHex(120, 100, 50) -> "00FF00"
+# @example Color_hslToHex(240, 100, 50) -> "0000FF"
+
+function Color_hslToHex(hue: integer, saturation: integer, lightness: integer) :: string:
+  set {_sat} to {_saturation} / 100
+  set {_light} to {_lightness} / 100
+
+  set {_chroma} to (1 - abs(2 * {_light} - 1)) * {_sat}
+  set {_x} to {_chroma} * (1 - abs((mod({_hue} / 60, 2) - 1)))
+  set {_m} to {_light} - {_chroma} / 2
+
+  set {_rgbPrimes::1::*} to {_chroma}, {_x}, 0
+  set {_rgbPrimes::2::*} to {_x}, {_chroma}, 0
+  set {_rgbPrimes::3::*} to 0, {_chroma}, {_x}
+  set {_rgbPrimes::4::*} to 0, {_x}, {_chroma}
+  set {_rgbPrimes::5::*} to {_x}, 0, {_chroma}
+  set {_rgbPrimes::6::*} to {_chroma}, 0, {_x}
+
+  set {_rgbPrime::*} to {_rgbPrimes::%floor(({_hue} / 60) + 1)%::*}
+
+  set {_r} to round(({_rgbPrime::1} + {_m}) * 255)
+  set {_g} to round(({_rgbPrime::2} + {_m}) * 255)
+  set {_b} to round(({_rgbPrime::3} + {_m}) * 255)
+
+  return Color_rgbToHex({_r}, {_g}, {_b})
+
+# @name hsl
+# @description A shorthand to Color_hexToRGB
+# @description Converts HSL color to HEX color (hashtag excluded)
+#
+# @authors zNotChill
+# @param {integer} hue - The hue of the color
+# @param {integer} saturation - The saturation of the color
+# @param {integer} lightness - The lightness of the color
+# @return {string} The HEX color
+# @example hsl(0, 100, 50) -> "FF0000"
+# @example hsl(120, 100, 50) -> "00FF00"
+# @example hsl(240, 100, 50) -> "0000FF"
+
+function hsl(hue: integer, saturation: integer, lightness: integer) :: string:
+  return Color_hslToHex({_hue}, {_saturation}, {_lightness})
